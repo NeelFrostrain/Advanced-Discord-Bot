@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economy - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <%- include('partials/navbar', { user, guildId }) %>
+    
+    <div class="flex">
+        <%- include('partials/sidebar', { guildId, active: 'economy' }) %>
+        
+        <main class="flex-1 p-8 ml-64">
+            <div class="max-w-7xl mx-auto">
+                <h1 class="text-3xl font-bold mb-8">
+                    <i class="fas fa-coins text-yellow-500"></i> Economy Management
+                </h1>
+                
+                <!-- Economy Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gradient-to-br from-yellow-600 to-yellow-700 p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-yellow-100 text-sm">Total Coins</p>
+                                <p class="text-3xl font-bold mt-2" id="totalCoins">-</p>
+                            </div>
+                            <i class="fas fa-coins text-5xl text-yellow-200 opacity-50"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-green-600 to-green-700 p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-green-100 text-sm">Average Balance</p>
+                                <p class="text-3xl font-bold mt-2" id="avgBalance">-</p>
+                            </div>
+                            <i class="fas fa-wallet text-5xl text-green-200 opacity-50"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-purple-600 to-purple-700 p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-purple-100 text-sm">Active Users</p>
+                                <p class="text-3xl font-bold mt-2" id="activeUsers">-</p>
+                            </div>
+                            <i class="fas fa-users text-5xl text-purple-200 opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="flex gap-4 mb-6 border-b border-gray-700">
+                    <button onclick="switchTab('richest')" class="px-6 py-3 font-semibold border-b-2 border-blue-500 text-blue-500 tab-btn">
+                        <i class="fas fa-trophy"></i> Richest Users
+                    </button>
+                    <button onclick="switchTab('items')" class="px-6 py-3 font-semibold text-gray-400 hover:text-white tab-btn">
+                        <i class="fas fa-shopping-bag"></i> Shop Items
+                    </button>
+                    <button onclick="switchTab('settings')" class="px-6 py-3 font-semibold text-gray-400 hover:text-white tab-btn">
+                        <i class="fas fa-cog"></i> Settings
+                    </button>
+                </div>
+                
+                <!-- Richest Users Tab -->
+                <div id="richest-tab" class="tab-content">
+                    <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+                        <table class="w-full">
+                            <thead class="bg-gray-700">
+                                <tr>
+                                    <th class="px-6 py-4 text-left">Rank</th>
+                                    <th class="px-6 py-4 text-left">User</th>
+                                    <th class="px-6 py-4 text-right">Wallet</th>
+                                    <th class="px-6 py-4 text-right">Bank</th>
+                                    <th class="px-6 py-4 text-right">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="richestList" class="divide-y divide-gray-700">
+                                <tr>
+                                    <td colspan="5" class="px-6 py-8 text-center text-gray-400">
+                                        <i class="fas fa-spinner fa-spin text-2xl"></i>
+                                        <p class="mt-2">Loading...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Shop Items Tab -->
+                <div id="items-tab" class="tab-content hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="itemsList">
+                        <div class="text-center text-gray-400 py-8">
+                            <i class="fas fa-spinner fa-spin text-2xl"></i>
+                            <p class="mt-2">Loading items...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Settings Tab -->
+                <div id="settings-tab" class="tab-content hidden">
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 max-w-2xl">
+                        <h3 class="text-xl font-semibold mb-6">Economy Settings</h3>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Daily Reward Amount</label>
+                                <input type="number" value="1000" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Work Command Cooldown (seconds)</label>
+                                <input type="number" value="3600" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Crime Success Rate (%)</label>
+                                <input type="number" value="50" min="0" max="100" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <input type="checkbox" id="enableEconomy" checked class="w-5 h-5 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                                <label for="enableEconomy" class="ml-3 text-sm font-medium">Enable Economy System</label>
+                            </div>
+                            
+                            <button class="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition">
+                                <i class="fas fa-save"></i> Save Settings
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        const guildId = '<%= guildId %>';
+        
+        async function loadEconomy() {
+            try {
+                const res = await fetch(`/api/guild/${guildId}/economy`);
+                const data = await res.json();
+                
+                if (data.success) {
+                    document.getElementById('totalCoins').textContent = data.totalCoins.toLocaleString();
+                    document.getElementById('avgBalance').textContent = Math.floor(data.avgBalance).toLocaleString();
+                    document.getElementById('activeUsers').textContent = data.richest.length;
+                    
+                    const richestList = document.getElementById('richestList');
+                    richestList.innerHTML = data.richest.map((user, i) => `
+                        <tr class="hover:bg-gray-700 transition">
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full ${i < 3 ? 'bg-yellow-600' : 'bg-gray-700'} font-bold">
+                                    ${i + 1}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-bold">
+                                        ${user.id.slice(0, 2).toUpperCase()}
+                                    </div>
+                                    <span class="font-medium">${user.id}</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-right text-green-400">
+                                <i class="fas fa-coins"></i> ${user.balance.toLocaleString()}
+                            </td>
+                            <td class="px-6 py-4 text-right text-blue-400">
+                                <i class="fas fa-piggy-bank"></i> ${user.bank.toLocaleString()}
+                            </td>
+                            <td class="px-6 py-4 text-right font-bold text-yellow-400">
+                                <i class="fas fa-trophy"></i> ${user.total.toLocaleString()}
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (err) {
+                console.error('Failed to load economy:', err);
+            }
+        }
+        
+        async function loadItems() {
+            try {
+                const res = await fetch('/api/items');
+                const data = await res.json();
+                
+                if (data.success) {
+                    const itemsList = document.getElementById('itemsList');
+                    itemsList.innerHTML = data.items.map(item => `
+                        <div class="bg-gray-800 p-6 rounded-lg border-l-4 ${getRarityColor(item.rarity)} hover:shadow-lg transition">
+                            <div class="text-4xl mb-3">${item.emoji}</div>
+                            <h4 class="text-lg font-semibold mb-2">${item.name}</h4>
+                            <p class="text-gray-400 text-sm mb-4">${item.description}</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-yellow-400 font-bold">
+                                    <i class="fas fa-coins"></i> ${item.price.toLocaleString()}
+                                </span>
+                                <span class="text-xs px-2 py-1 rounded ${getRarityBadge(item.rarity)}">
+                                    ${item.rarity}
+                                </span>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (err) {
+                console.error('Failed to load items:', err);
+            }
+        }
+        
+        function getRarityColor(rarity) {
+            const colors = {
+                common: 'border-gray-500',
+                uncommon: 'border-green-500',
+                rare: 'border-blue-500',
+                epic: 'border-purple-500',
+                legendary: 'border-yellow-500',
+                mythic: 'border-red-500'
+            };
+            return colors[rarity] || 'border-gray-500';
+        }
+        
+        function getRarityBadge(rarity) {
+            const badges = {
+                common: 'bg-gray-600',
+                uncommon: 'bg-green-600',
+                rare: 'bg-blue-600',
+                epic: 'bg-purple-600',
+                legendary: 'bg-yellow-600',
+                mythic: 'bg-red-600'
+            };
+            return badges[rarity] || 'bg-gray-600';
+        }
+        
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'text-blue-500');
+                btn.classList.add('text-gray-400');
+            });
+            
+            document.getElementById(`${tab}-tab`).classList.remove('hidden');
+            event.target.classList.add('border-blue-500', 'text-blue-500');
+            event.target.classList.remove('text-gray-400');
+            
+            if (tab === 'items' && document.getElementById('itemsList').children.length === 1) {
+                loadItems();
+            }
+        }
+        
+        loadEconomy();
+    </script>
+</body>
+</html>

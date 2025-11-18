@@ -1,0 +1,37 @@
+<nav class="bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg">
+    <div class="px-6 py-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="/dashboard" class="text-2xl font-bold text-white hover:text-gray-200 transition">
+                    <i class="fas fa-robot"></i> Bot Dashboard
+                </a>
+                <% if (typeof guildId !== 'undefined') { %>
+                    <span class="text-white/60">|</span>
+                    <span class="text-white/90 text-sm">Server ID: <%= guildId.slice(0, 8) %>...</span>
+                <% } %>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <a href="/dashboard" class="text-white/80 hover:text-white transition">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                
+                <div class="flex items-center gap-3 pl-4 border-l border-white/20">
+                    <% if (user.avatar) { %>
+                        <img src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png" 
+                             alt="<%= user.username %>" 
+                             class="w-10 h-10 rounded-full border-2 border-white/30">
+                    <% } else { %>
+                        <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center border-2 border-white/30">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                    <% } %>
+                    <span class="text-white font-medium"><%= user.username %></span>
+                    <a href="/logout" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-white text-sm transition">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

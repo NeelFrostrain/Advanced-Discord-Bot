@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <%- include('partials/navbar', { user, guildId }) %>
+    
+    <div class="flex">
+        <%- include('partials/sidebar', { guildId, active: 'overview' }) %>
+        
+        <main class="flex-1 p-8 ml-64">
+            <div class="max-w-7xl mx-auto">
+                <h1 class="text-3xl font-bold mb-8">
+                    <i class="fas fa-server text-blue-500"></i> Server Overview
+                </h1>
+                
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-gradient-to-br from-blue-600 to-blue-700 p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-blue-100 text-sm">Total Members</p>
+                                <p class="text-3xl font-bold mt-2" id="memberCount">-</p>
+                            </div>
+                            <i class="fas fa-users text-5xl text-blue-200 opacity-50"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-purple-600 to-purple-700 p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-purple-100 text-sm">Messages (30d)</p>
+                                <p class="text-3xl font-bold mt-2" id="messageCount">-</p>
+                            </div>
+                            <i class="fas fa-comments text-5xl text-purple-200 opacity-50"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-green-600 to-green-700 p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-green-100 text-sm">Growth Rate</p>
+                                <p class="text-3xl font-bold mt-2" id="growthRate">-</p>
+                            </div>
+                            <i class="fas fa-chart-line text-5xl text-green-200 opacity-50"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-yellow-600 to-yellow-700 p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-yellow-100 text-sm">Active Users</p>
+                                <p class="text-3xl font-bold mt-2" id="activeUsers">-</p>
+                            </div>
+                            <i class="fas fa-star text-5xl text-yellow-200 opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Top Members Section -->
+                <div class="bg-gray-800 rounded-lg border border-gray-700 mb-8">
+                    <div class="p-6 border-b border-gray-700">
+                        <h2 class="text-2xl font-semibold flex items-center gap-2">
+                            <i class="fas fa-trophy text-yellow-500"></i> Top Active Members
+                        </h2>
+                    </div>
+                    <div id="topMembers" class="p-6">
+                        <div class="text-center py-8">
+                            <i class="fas fa-spinner fa-spin text-4xl text-blue-500"></i>
+                            <p class="mt-4 text-gray-400">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Server Health Section -->
+                <div class="bg-gray-800 rounded-lg border border-gray-700">
+                    <div class="p-6 border-b border-gray-700">
+                        <h2 class="text-2xl font-semibold flex items-center gap-2">
+                            <i class="fas fa-chart-bar text-green-500"></i> Server Health
+                        </h2>
+                    </div>
+                    <div id="serverHealth" class="p-6">
+                        <div class="text-center py-8">
+                            <i class="fas fa-spinner fa-spin text-4xl text-blue-500"></i>
+                            <p class="mt-4 text-gray-400">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        const guildId = '<%= guildId %>';
+        
+        // Fetch server stats
+        fetch(`/api/guild/${guildId}/stats`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    displayStats(data);
+                }
+            })
+            .catch(err => console.error('Error:', err));
+        
+        function displayStats(data) {
+            // Update stat cards
+            if (data.analytics) {
+                document.getElementById('messageCount').textContent = 
+                    data.analytics.totalMessages?.toLocaleString() || '0';
+            }
+            
+            if (data.health) {
+                document.getElementById('growthRate').textContent = 
+                    data.health.growthRate + '%';
+            }
+            
+            // Display top members
+            if (data.topMembers && data.topMembers.length > 0) {
+                const container = document.getElementById('topMembers');
+                container.innerHTML = `
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-700">
+                                <tr>
+                                    <th class="px-6 py-4 text-left">Rank</th>
+                                    <th class="px-6 py-4 text-left">User</th>
+                                    <th class="px-6 py-4 text-right">Messages</th>
+                                    <th class="px-6 py-4 text-right">Activity Score</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-700">
+                                ${data.topMembers.map((member, i) => `
+                                    <tr class="hover:bg-gray-700 transition">
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center justify-center w-8 h-8 rounded-full ${i < 3 ? 'bg-yellow-600' : 'bg-gray-700'} font-bold">
+                                                ${i + 1}
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-bold">
+                                                    ${member.userId.slice(0, 2).toUpperCase()}
+                                                </div>
+                                                <span class="font-medium">User ${member.userId.slice(0, 8)}...</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-right font-semibold">${member.messages.toLocaleString()}</td>
+                                        <td class="px-6 py-4 text-right">
+                                            <span class="px-3 py-1 bg-blue-600 rounded-full text-sm font-semibold">${member.activityScore}</span>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            // Display server health
+            if (data.health) {
+                const container = document.getElementById('serverHealth');
+                container.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gray-700 p-6 rounded-lg">
+                            <p class="text-gray-400 text-sm mb-2">Avg Messages (7d)</p>
+                            <p class="text-3xl font-bold text-blue-500">${data.health.avgMessages7d}</p>
+                        </div>
+                        <div class="bg-gray-700 p-6 rounded-lg">
+                            <p class="text-gray-400 text-sm mb-2">Avg Messages (30d)</p>
+                            <p class="text-3xl font-bold text-blue-500">${data.health.avgMessages30d}</p>
+                        </div>
+                        <div class="bg-gray-700 p-6 rounded-lg">
+                            <p class="text-gray-400 text-sm mb-2">Activity Trend</p>
+                            <p class="text-3xl font-bold">
+                                ${data.health.activityTrend === 'increasing' ? 
+                                    '<span class="text-green-500">📈 Increasing</span>' : 
+                                    '<span class="text-red-500">📉 Decreasing</span>'}
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

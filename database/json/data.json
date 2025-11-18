@@ -1,0 +1,630 @@
+{
+  "users": {
+    "1433467777766654146": {
+      "1347827007534268418": {
+        "id": "1347827007534268418",
+        "guildId": "1433467777766654146",
+        "balance": 1908,
+        "bank": 120,
+        "inventory": [],
+        "bio": "",
+        "achievements": [],
+        "createdAt": 1763503959162
+      }
+    },
+    "1316439358609297418": {
+      "1347827007534268418": {
+        "id": "1347827007534268418",
+        "guildId": "1316439358609297418",
+        "balance": 5,
+        "bank": 0,
+        "inventory": [],
+        "bio": "",
+        "achievements": [],
+        "createdAt": 1763505149557
+      }
+    }
+  },
+  "cooldowns": {
+    "daily": {
+      "1433467777766654146": {
+        "1347827007534268418": 1763503959150
+      }
+    },
+    "weekly": {
+      "1433467777766654146": {
+        "1347827007534268418": 1763503971868
+      }
+    },
+    "hunt": {
+      "1433467777766654146": {
+        "1347827007534268418": 1763504115667
+      }
+    }
+  },
+  "afk": {
+    "1433467777766654146": {
+      "1347827007534268418": {
+        "reason": "AFK",
+        "timestamp": 1763503986601
+      }
+    }
+  },
+  "levels": {
+    "1433467777766654146": {
+      "1347827007534268418": {
+        "id": "1347827007534268418",
+        "guildId": "1433467777766654146",
+        "xp": 78,
+        "level": 1,
+        "totalXP": 78,
+        "messages": 3
+      }
+    },
+    "1316439358609297418": {
+      "1347827007534268418": {
+        "id": "1347827007534268418",
+        "guildId": "1316439358609297418",
+        "xp": 37,
+        "level": 1,
+        "totalXP": 37,
+        "messages": 2,
+        "lastXPGain": 0,
+        "rankCard": {
+          "backgroundColor": "#2b2d31",
+          "progressBarColor": "#5865f2",
+          "textColor": "#ffffff",
+          "accentColor": "#5865f2"
+        }
+      }
+    }
+  },
+  "inventory": {
+    "1433467777766654146": {
+      "1347827007534268418": {
+        "items": [
+          {
+            "id": "lootbox",
+            "name": "📦 Lootbox",
+            "price": 1000,
+            "type": "lootbox",
+            "rarity": "common",
+            "uniqueId": 1763504175403,
+            "acquiredAt": 1763504175403
+          }
+        ]
+      }
+    }
+  },
+  "pets": {
+    "1433467777766654146": {
+      "1347827007534268418": {
+        "pets": [
+          {
+            "id": "cat",
+            "name": "🐈 Cat",
+            "rarity": "common",
+            "damage": 4,
+            "hp": 25,
+            "summonedAt": 1763504397194
+          }
+        ]
+      }
+    }
+  },
+  "invites": {
+    "1316439358609297418": {
+      "VpeXZAnV": {
+        "code": "VpeXZAnV",
+        "guildId": "1316439358609297418",
+        "inviterId": "1347827007534268418",
+        "inviterTag": "neelfrostrain",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 604800,
+        "temporary": false,
+        "createdAt": 1763380824325,
+        "expiresAt": 1763985624000,
+        "isVanity": false,
+        "channel": "1316439359540432956"
+      },
+      "pXPVXbst": {
+        "code": "pXPVXbst",
+        "guildId": "1316439358609297418",
+        "inviterId": "1220985874074832950",
+        "inviterTag": "tridib_creates",
+        "uses": 1,
+        "maxUses": 0,
+        "maxAge": 604800,
+        "temporary": false,
+        "createdAt": 1763059248418,
+        "expiresAt": 1763664048000,
+        "isVanity": false,
+        "channel": "1438598761558310963"
+      }
+    },
+    "1433467777766654146": {
+      "3VUrHDTAk": {
+        "code": "3VUrHDTAk",
+        "guildId": "1433467777766654146",
+        "inviterId": "1347827007534268418",
+        "inviterTag": "neelfrostrain",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 5184000,
+        "temporary": false,
+        "createdAt": 1762236066526,
+        "expiresAt": 1767420066000,
+        "isVanity": false,
+        "channel": "1433467779205300418"
+      },
+      "4wS8XsKnu": {
+        "code": "4wS8XsKnu",
+        "guildId": "1433467777766654146",
+        "inviterId": "1347827007534268418",
+        "inviterTag": "neelfrostrain",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 5184000,
+        "temporary": false,
+        "createdAt": 1761910376391,
+        "expiresAt": 1767094376000,
+        "isVanity": false,
+        "channel": "1433467779012366410"
+      },
+      "5skfHkrM": {
+        "code": "5skfHkrM",
+        "guildId": "1433467777766654146",
+        "inviterId": "1347827007534268418",
+        "inviterTag": "neelfrostrain",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 604800,
+        "temporary": false,
+        "createdAt": 1763206611626,
+        "expiresAt": 1763811411000,
+        "isVanity": false,
+        "channel": "1433467779205300417"
+      },
+      "87n9dkDTKE": {
+        "code": "87n9dkDTKE",
+        "guildId": "1433467777766654146",
+        "inviterId": "1050445107389804646",
+        "inviterTag": "Astrial#6218",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 0,
+        "temporary": false,
+        "createdAt": 1763002385626,
+        "isVanity": false,
+        "channel": "1434939226989789204"
+      },
+      "DPVHTzeGQj": {
+        "code": "DPVHTzeGQj",
+        "guildId": "1433467777766654146",
+        "inviterId": "1347827007534268418",
+        "inviterTag": "neelfrostrain",
+        "uses": 1,
+        "maxUses": 0,
+        "maxAge": 0,
+        "temporary": false,
+        "createdAt": 1763385079420,
+        "isVanity": false,
+        "channel": "1434397311697555586"
+      },
+      "GTExKre2H": {
+        "code": "GTExKre2H",
+        "guildId": "1433467777766654146",
+        "inviterId": "1347827007534268418",
+        "inviterTag": "neelfrostrain",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 5184000,
+        "temporary": false,
+        "createdAt": 1762675446945,
+        "expiresAt": 1767859446000,
+        "isVanity": false,
+        "channel": "1433467779205300417"
+      },
+      "GZv3Pgz4d": {
+        "code": "GZv3Pgz4d",
+        "guildId": "1433467777766654146",
+        "inviterId": "1347827007534268418",
+        "inviterTag": "neelfrostrain",
+        "uses": 4,
+        "maxUses": 0,
+        "maxAge": 5184000,
+        "temporary": false,
+        "createdAt": 1762020702133,
+        "expiresAt": 1767204702000,
+        "isVanity": false,
+        "channel": "1433467778681012340"
+      },
+      "GjhxCP9w": {
+        "code": "GjhxCP9w",
+        "guildId": "1433467777766654146",
+        "inviterId": "1220985874074832950",
+        "inviterTag": "tridib_creates",
+        "uses": 2,
+        "maxUses": 0,
+        "maxAge": 604800,
+        "temporary": false,
+        "createdAt": 1763305229422,
+        "expiresAt": 1763910029000,
+        "isVanity": false,
+        "channel": "1433467778681012340"
+      },
+      "HtXKfeeJ": {
+        "code": "HtXKfeeJ",
+        "guildId": "1433467777766654146",
+        "inviterId": "1347827007534268418",
+        "inviterTag": "neelfrostrain",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 604800,
+        "temporary": false,
+        "createdAt": 1763385073995,
+        "expiresAt": 1763989873000,
+        "isVanity": false,
+        "channel": "1434397311697555586"
+      },
+      "HwXkB9rX": {
+        "code": "HwXkB9rX",
+        "guildId": "1433467777766654146",
+        "inviterId": "1220985874074832950",
+        "inviterTag": "tridib_creates",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 604800,
+        "temporary": false,
+        "createdAt": 1763305182591,
+        "expiresAt": 1763909982000,
+        "isVanity": false,
+        "channel": "1433467779012366410"
+      },
+      "M3a3JmYkg": {
+        "code": "M3a3JmYkg",
+        "guildId": "1433467777766654146",
+        "inviterId": "956852355440201728",
+        "inviterTag": "wex_raya",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 5184000,
+        "temporary": false,
+        "createdAt": 1763019841366,
+        "expiresAt": 1768203841000,
+        "isVanity": false,
+        "channel": "1433467779205300417"
+      },
+      "QvbVTsHVpX": {
+        "code": "QvbVTsHVpX",
+        "guildId": "1433467777766654146",
+        "inviterId": "1410874609808703541",
+        "inviterTag": "abie_gg",
+        "uses": 6,
+        "maxUses": 0,
+        "maxAge": 0,
+        "temporary": false,
+        "createdAt": 1762237449829,
+        "isVanity": false,
+        "channel": "1433467778681012340"
+      },
+      "RVrRw9M2e": {
+        "code": "RVrRw9M2e",
+        "guildId": "1433467777766654146",
+        "inviterId": "1410874609808703541",
+        "inviterTag": "abie_gg",
+        "uses": 1,
+        "maxUses": 0,
+        "maxAge": 5184000,
+        "temporary": false,
+        "createdAt": 1762013639952,
+        "expiresAt": 1767197639000,
+        "isVanity": false,
+        "channel": "1434059374913126532"
+      },
+      "VHT2Q9K6B": {
+        "code": "VHT2Q9K6B",
+        "guildId": "1433467777766654146",
+        "inviterId": "1347827007534268418",
+        "inviterTag": "neelfrostrain",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 5184000,
+        "temporary": false,
+        "createdAt": 1762020691507,
+        "expiresAt": 1767204691000,
+        "isVanity": false,
+        "channel": "1433670653197815818"
+      },
+      "VSBwCxEzs": {
+        "code": "VSBwCxEzs",
+        "guildId": "1433467777766654146",
+        "inviterId": "1347827007534268418",
+        "inviterTag": "neelfrostrain",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 5184000,
+        "temporary": false,
+        "createdAt": 1762685346893,
+        "expiresAt": 1767869346000,
+        "isVanity": false,
+        "channel": "1437027474931322960"
+      },
+      "YpGEBKvYFn": {
+        "code": "YpGEBKvYFn",
+        "guildId": "1433467777766654146",
+        "inviterId": "1347827007534268418",
+        "inviterTag": "neelfrostrain",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 0,
+        "temporary": false,
+        "createdAt": 1762685357595,
+        "isVanity": false,
+        "channel": "1437027474931322960"
+      },
+      "ZSUeH5mG": {
+        "code": "ZSUeH5mG",
+        "guildId": "1433467777766654146",
+        "inviterId": "1347827007534268418",
+        "inviterTag": "neelfrostrain",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 604800,
+        "temporary": false,
+        "createdAt": 1763028118967,
+        "expiresAt": 1763632918000,
+        "isVanity": false,
+        "channel": "1433467779205300417"
+      },
+      "ZShZympDF": {
+        "code": "ZShZympDF",
+        "guildId": "1433467777766654146",
+        "inviterId": "956852355440201728",
+        "inviterTag": "wex_raya",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 5184000,
+        "temporary": false,
+        "createdAt": 1763228325270,
+        "expiresAt": 1768412325000,
+        "isVanity": false,
+        "channel": "1433467779012366410"
+      },
+      "cCVJH6YKr": {
+        "code": "cCVJH6YKr",
+        "guildId": "1433467777766654146",
+        "inviterId": "1347827007534268418",
+        "inviterTag": "neelfrostrain",
+        "uses": 1,
+        "maxUses": 0,
+        "maxAge": 5184000,
+        "temporary": false,
+        "createdAt": 1762057872872,
+        "expiresAt": 1767241872000,
+        "isVanity": false,
+        "channel": "1434362466589999115"
+      },
+      "hUaZunAxp": {
+        "code": "hUaZunAxp",
+        "guildId": "1433467777766654146",
+        "inviterId": "1410874609808703541",
+        "inviterTag": "abie_gg",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 5184000,
+        "temporary": false,
+        "createdAt": 1762237445649,
+        "expiresAt": 1767421445000,
+        "isVanity": false,
+        "channel": "1433467778681012340"
+      },
+      "j46mznzapK": {
+        "code": "j46mznzapK",
+        "guildId": "1433467777766654146",
+        "inviterId": "1347827007534268418",
+        "inviterTag": "neelfrostrain",
+        "uses": 8,
+        "maxUses": 0,
+        "maxAge": 0,
+        "temporary": false,
+        "createdAt": 1762020706191,
+        "isVanity": false,
+        "channel": "1433467778681012340"
+      },
+      "q3CmGJGCn": {
+        "code": "q3CmGJGCn",
+        "guildId": "1433467777766654146",
+        "inviterId": "1410874609808703541",
+        "inviterTag": "abie_gg",
+        "uses": 1,
+        "maxUses": 0,
+        "maxAge": 5184000,
+        "temporary": false,
+        "createdAt": 1761926318410,
+        "expiresAt": 1767110318000,
+        "isVanity": false,
+        "channel": "1433467779587248306"
+      },
+      "qje9c8mZ": {
+        "code": "qje9c8mZ",
+        "guildId": "1433467777766654146",
+        "inviterId": "956852355440201728",
+        "inviterTag": "wex_raya",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 604800,
+        "temporary": false,
+        "createdAt": 1762966191608,
+        "expiresAt": 1763570991000,
+        "isVanity": false,
+        "channel": "1433467779012366410"
+      },
+      "rvwDvmv7T": {
+        "code": "rvwDvmv7T",
+        "guildId": "1433467777766654146",
+        "inviterId": "1347827007534268418",
+        "inviterTag": "neelfrostrain",
+        "uses": 1,
+        "maxUses": 0,
+        "maxAge": 5184000,
+        "temporary": false,
+        "createdAt": 1762064814975,
+        "expiresAt": 1767248814000,
+        "isVanity": false,
+        "channel": "1434397311697555586"
+      },
+      "sAMy8jT9": {
+        "code": "sAMy8jT9",
+        "guildId": "1433467777766654146",
+        "inviterId": "1220985874074832950",
+        "inviterTag": "tridib_creates",
+        "uses": 0,
+        "maxUses": 0,
+        "maxAge": 604800,
+        "temporary": false,
+        "createdAt": 1763288909785,
+        "expiresAt": 1763893709000,
+        "isVanity": false,
+        "channel": "1434397311697555586"
+      }
+    }
+  },
+  "analytics": {
+    "members": {
+      "1433467777766654146": {
+        "1347827007534268418": {
+          "userId": "1347827007534268418",
+          "guildId": "1433467777766654146",
+          "messages": 1,
+          "voiceMinutes": 0,
+          "reactions": 0,
+          "emojisUsed": {},
+          "dailyMessages": {
+            "2025-11-19": 1
+          },
+          "dailyVoice": {},
+          "lastActive": 1763506101777,
+          "joinedAt": 1763506101777,
+          "activityScore": 1,
+          "engagementScore": 0,
+          "streak": 0
+        }
+      },
+      "1316439358609297418": {
+        "1347827007534268418": {
+          "userId": "1347827007534268418",
+          "guildId": "1316439358609297418",
+          "messages": 2,
+          "voiceMinutes": 0,
+          "reactions": 0,
+          "emojisUsed": {},
+          "dailyMessages": {
+            "2025-11-19": 2
+          },
+          "dailyVoice": {},
+          "lastActive": 1763508305825,
+          "joinedAt": 1763508285509,
+          "activityScore": 2,
+          "engagementScore": 0,
+          "streak": 0
+        }
+      }
+    },
+    "channels": {
+      "1433467777766654146": {
+        "1433670653197815818": {
+          "channelId": "1433670653197815818",
+          "guildId": "1433467777766654146",
+          "name": "",
+          "type": "text",
+          "messages": 1,
+          "voiceMinutes": 0,
+          "activeUsers": {},
+          "hourlyActivity": {
+            "4": 1
+          },
+          "dailyActivity": {
+            "2025-11-19": 1
+          }
+        }
+      },
+      "1316439358609297418": {
+        "1439901284755968020": {
+          "channelId": "1439901284755968020",
+          "guildId": "1316439358609297418",
+          "name": "",
+          "type": "text",
+          "messages": 2,
+          "voiceMinutes": 0,
+          "activeUsers": {},
+          "hourlyActivity": {
+            "4": 2
+          },
+          "dailyActivity": {
+            "2025-11-19": 2
+          }
+        }
+      }
+    },
+    "server": {
+      "1433467777766654146": {
+        "guildId": "1433467777766654146",
+        "totalMessages": 1,
+        "totalVoiceMinutes": 0,
+        "activeMembers": 0,
+        "dailyStats": {
+          "2025-11-19": {
+            "messages": 1,
+            "voice": 0,
+            "activeMembers": 0,
+            "joins": 0,
+            "leaves": 0
+          }
+        },
+        "growthRate": 0,
+        "activityIndex": 0,
+        "peakHours": []
+      },
+      "1316439358609297418": {
+        "guildId": "1316439358609297418",
+        "totalMessages": 2,
+        "totalVoiceMinutes": 0,
+        "activeMembers": 0,
+        "dailyStats": {
+          "2025-11-19": {
+            "messages": 2,
+            "voice": 0,
+            "activeMembers": 0,
+            "joins": 0,
+            "leaves": 0
+          }
+        },
+        "growthRate": 0,
+        "activityIndex": 0,
+        "peakHours": []
+      }
+    }
+  },
+  "rankConfig": {
+    "1433467777766654146": {
+      "guildId": "1433467777766654146",
+      "xpPerMessage": 15,
+      "xpCooldown": 60000,
+      "rankRoles": [],
+      "enabledChannels": [],
+      "disabledChannels": [],
+      "multipliers": {}
+    },
+    "1316439358609297418": {
+      "guildId": "1316439358609297418",
+      "xpPerMessage": 15,
+      "xpCooldown": 60000,
+      "rankRoles": [],
+      "enabledChannels": [],
+      "disabledChannels": [],
+      "multipliers": {}
+    }
+  }
+}

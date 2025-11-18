@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moderation - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <%- include('partials/navbar', { user, guildId }) %>
+    
+    <div class="flex">
+        <%- include('partials/sidebar', { guildId, active: 'moderation' }) %>
+        
+        <main class="flex-1 p-8 ml-64">
+            <div class="max-w-7xl mx-auto">
+                <h1 class="text-3xl font-bold mb-8">
+                    <i class="fas fa-shield-alt text-red-500"></i> Moderation Tools
+                </h1>
+                
+                <!-- Mod Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Total Warnings</p>
+                                <p class="text-3xl font-bold mt-2 text-yellow-500">0</p>
+                            </div>
+                            <i class="fas fa-exclamation-triangle text-4xl text-yellow-500 opacity-50"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Active Bans</p>
+                                <p class="text-3xl font-bold mt-2 text-red-500">0</p>
+                            </div>
+                            <i class="fas fa-ban text-4xl text-red-500 opacity-50"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Muted Users</p>
+                                <p class="text-3xl font-bold mt-2 text-orange-500">0</p>
+                            </div>
+                            <i class="fas fa-volume-mute text-4xl text-orange-500 opacity-50"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Mod Actions (7d)</p>
+                                <p class="text-3xl font-bold mt-2 text-blue-500">0</p>
+                            </div>
+                            <i class="fas fa-gavel text-4xl text-blue-500 opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="flex gap-4 mb-6 border-b border-gray-700">
+                    <button onclick="switchTab('logs')" class="px-6 py-3 font-semibold border-b-2 border-blue-500 text-blue-500 tab-btn">
+                        <i class="fas fa-list"></i> Mod Logs
+                    </button>
+                    <button onclick="switchTab('automod')" class="px-6 py-3 font-semibold text-gray-400 hover:text-white tab-btn">
+                        <i class="fas fa-robot"></i> Auto-Mod
+                    </button>
+                    <button onclick="switchTab('warnings')" class="px-6 py-3 font-semibold text-gray-400 hover:text-white tab-btn">
+                        <i class="fas fa-exclamation-circle"></i> Warnings
+                    </button>
+                </div>
+                
+                <!-- Mod Logs Tab -->
+                <div id="logs-tab" class="tab-content">
+                    <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+                        <div class="p-4 bg-gray-700 flex items-center justify-between">
+                            <h3 class="font-semibold">Recent Moderation Actions</h3>
+                            <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm transition">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-4" id="modLogsList">
+                                <div class="text-center text-gray-400 py-8">
+                                    <i class="fas fa-clipboard-list text-4xl mb-3"></i>
+                                    <p>No moderation actions yet</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Auto-Mod Tab -->
+                <div id="automod-tab" class="tab-content hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Spam Protection -->
+                        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                                <i class="fas fa-comments text-blue-500"></i> Spam Protection
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span>Enable Spam Filter</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer" checked>
+                                        <div class="w-11 h-6 bg-gray-700 peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-2">Max Messages per 5s</label>
+                                    <input type="number" value="5" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-2">Action</label>
+                                    <select class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg">
+                                        <option>Warn</option>
+                                        <option>Mute (5m)</option>
+                                        <option>Kick</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Link Filter -->
+                        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                                <i class="fas fa-link text-purple-500"></i> Link Filter
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span>Block All Links</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-700 peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span>Allow Discord Invites</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer" checked>
+                                        <div class="w-11 h-6 bg-gray-700 peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-2">Whitelist Domains</label>
+                                    <textarea class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg" rows="3" placeholder="youtube.com&#10;twitter.com"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Bad Words Filter -->
+                        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                                <i class="fas fa-ban text-red-500"></i> Bad Words Filter
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span>Enable Filter</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer" checked>
+                                        <div class="w-11 h-6 bg-gray-700 peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-2">Blocked Words</label>
+                                    <textarea class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg" rows="4" placeholder="Add words (one per line)"></textarea>
+                                </div>
+                                <button class="w-full px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition">
+                                    <i class="fas fa-save"></i> Save Filter
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Caps Lock Filter -->
+                        <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                                <i class="fas fa-font text-yellow-500"></i> Caps Lock Filter
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span>Enable Filter</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-700 peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-2">Max Caps Percentage</label>
+                                    <input type="number" value="70" min="0" max="100" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg">
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-2">Min Message Length</label>
+                                    <input type="number" value="10" class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex justify-end">
+                        <button class="px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition">
+                            <i class="fas fa-save"></i> Save All Settings
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Warnings Tab -->
+                <div id="warnings-tab" class="tab-content hidden">
+                    <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+                        <table class="w-full">
+                            <thead class="bg-gray-700">
+                                <tr>
+                                    <th class="px-6 py-4 text-left">User</th>
+                                    <th class="px-6 py-4 text-left">Reason</th>
+                                    <th class="px-6 py-4 text-left">Moderator</th>
+                                    <th class="px-6 py-4 text-left">Date</th>
+                                    <th class="px-6 py-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-700">
+                                <tr>
+                                    <td colspan="5" class="px-6 py-8 text-center text-gray-400">
+                                        <i class="fas fa-exclamation-triangle text-4xl mb-3"></i>
+                                        <p>No warnings issued yet</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'text-blue-500');
+                btn.classList.add('text-gray-400');
+            });
+            
+            document.getElementById(`${tab}-tab`).classList.remove('hidden');
+            event.target.classList.add('border-blue-500', 'text-blue-500');
+            event.target.classList.remove('text-gray-400');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+{
+  "bot": {
+    "name": "Advanced Bot",
+    "version": "2.0.0",
+    "description": "Full-featured Discord bot",
+    "color": "#5865F2"
+  },
+  "economy": {
+    "startingBalance": 1000,
+    "dailyAmount": 500,
+    "weeklyAmount": 3500,
+    "workMin": 50,
+    "workMax": 200,
+    "workCooldown": 3600000,
+    "dailyCooldown": 86400000,
+    "weeklyCooldown": 604800000
+  },
+  "leveling": {
+    "enabled": true,
+    "xpPerMessage": [15, 25],
+    "xpCooldown": 60000,
+    "levelUpMessage": true,
+    "levelFormula": "level * level * 100"
+  },
+  "battle": {
+    "huntCooldown": 30000,
+    "pvpCooldown": 60000,
+    "critChance": 0.15,
+    "critMultiplier": 1.5
+  },
+  "moderation": {
+    "logChannel": null,
+    "autoMod": {
+      "enabled": false,
+      "antiSpam": true,
+      "antiRaid": true,
+      "badWords": []
+    }
+  },
+  "features": {
+    "tickets": true,
+    "giveaways": true,
+    "reactionRoles": true,
+    "welcome": true,
+    "autoRole": true,
+    "starboard": true
+  }
+}

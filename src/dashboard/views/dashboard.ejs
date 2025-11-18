@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Discord Bot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg">
+        <div class="px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold">
+                    <i class="fas fa-robot"></i> Bot Dashboard
+                </div>
+                <div class="flex items-center gap-4">
+                    <% if (user.avatar) { %>
+                        <img src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png" 
+                             alt="<%= user.username %>" 
+                             class="w-10 h-10 rounded-full border-2 border-white/30">
+                    <% } else { %>
+                        <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    <% } %>
+                    <span class="font-medium"><%= user.username %></span>
+                    <a href="/logout" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <h1 class="text-4xl font-bold mb-8">Welcome, <%= user.username %>!</h1>
+        
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-gradient-to-br from-blue-600 to-blue-700 p-6 rounded-lg shadow-lg">
+                <div class="text-3xl font-bold" id="totalGuilds">-</div>
+                <div class="text-blue-100 mt-2">Your Servers</div>
+            </div>
+            <div class="bg-gradient-to-br from-purple-600 to-purple-700 p-6 rounded-lg shadow-lg">
+                <div class="text-3xl font-bold">70+</div>
+                <div class="text-purple-100 mt-2">Commands</div>
+            </div>
+            <div class="bg-gradient-to-br from-green-600 to-green-700 p-6 rounded-lg shadow-lg">
+                <div class="text-3xl font-bold">10+</div>
+                <div class="text-green-100 mt-2">Systems</div>
+            </div>
+            <div class="bg-gradient-to-br from-yellow-600 to-yellow-700 p-6 rounded-lg shadow-lg">
+                <div class="text-3xl font-bold">v3.0</div>
+                <div class="text-yellow-100 mt-2">Version</div>
+            </div>
+        </div>
+        
+        <!-- Your Servers Section -->
+        <div class="bg-gray-800 rounded-lg border border-gray-700 mb-8">
+            <div class="p-6 border-b border-gray-700">
+                <h2 class="text-2xl font-semibold">Your Servers</h2>
+            </div>
+            <div id="guildsContainer" class="p-6">
+                <div class="text-center py-8">
+                    <i class="fas fa-spinner fa-spin text-4xl text-blue-500"></i>
+                    <p class="mt-4 text-gray-400">Loading servers...</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Features Grid -->
+        <div class="bg-gray-800 rounded-lg border border-gray-700 mb-8">
+            <div class="p-6 border-b border-gray-700">
+                <h2 class="text-2xl font-semibold">Features</h2>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-gray-700 p-6 rounded-lg text-center hover:bg-gray-600 transition">
+                        <div class="text-4xl mb-3">⭐</div>
+                        <div class="font-semibold mb-2">Rank System</div>
+                        <div class="text-sm text-gray-400">Custom rank cards & rewards</div>
+                    </div>
+                    <div class="bg-gray-700 p-6 rounded-lg text-center hover:bg-gray-600 transition">
+                        <div class="text-4xl mb-3">📊</div>
+                        <div class="font-semibold mb-2">Analytics</div>
+                        <div class="text-sm text-gray-400">Track server activity</div>
+                    </div>
+                    <div class="bg-gray-700 p-6 rounded-lg text-center hover:bg-gray-600 transition">
+                        <div class="text-4xl mb-3">🎫</div>
+                        <div class="font-semibold mb-2">Invite Tracker</div>
+                        <div class="text-sm text-gray-400">Monitor invites & alts</div>
+                    </div>
+                    <div class="bg-gray-700 p-6 rounded-lg text-center hover:bg-gray-600 transition">
+                        <div class="text-4xl mb-3">💰</div>
+                        <div class="font-semibold mb-2">Economy</div>
+                        <div class="text-sm text-gray-400">Full economy system</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="bg-gray-800 rounded-lg border border-gray-700">
+            <div class="p-6 border-b border-gray-700">
+                <h2 class="text-2xl font-semibold">Quick Links</h2>
+            </div>
+            <div class="p-6 flex gap-4 flex-wrap">
+                <a href="https://discord.com/developers/applications" target="_blank" 
+                   class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition">
+                    <i class="fas fa-code"></i> Developer Portal
+                </a>
+                <a href="https://discord.js.org" target="_blank" 
+                   class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition">
+                    <i class="fas fa-book"></i> Discord.js Docs
+                </a>
+                <a href="/" class="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg transition">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        fetch('/api/guilds')
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    displayGuilds(data.guilds);
+                    document.getElementById('totalGuilds').textContent = data.guilds.length;
+                } else {
+                    document.getElementById('guildsContainer').innerHTML = 
+                        '<div class="bg-red-600 p-4 rounded-lg">Failed to load servers</div>';
+                }
+            })
+            .catch(err => {
+                console.error('Error:', err);
+                document.getElementById('guildsContainer').innerHTML = 
+                    '<div class="bg-red-600 p-4 rounded-lg">Error loading servers</div>';
+            });
+        
+        function displayGuilds(guilds) {
+            const container = document.getElementById('guildsContainer');
+            
+            if (guilds.length === 0) {
+                container.innerHTML = '<p class="text-gray-400 text-center py-8">No servers found. Invite the bot to your server!</p>';
+                return;
+            }
+            
+            container.innerHTML = '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">' + 
+                guilds.map(guild => `
+                    <div class="bg-gray-700 p-6 rounded-lg hover:bg-gray-600 transition cursor-pointer" 
+                         onclick="selectGuild('${guild.id}', '${guild.name.replace(/'/g, "\\'")}')">
+                        <div class="flex flex-col items-center text-center">
+                            ${guild.icon ? 
+                                `<img src="https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png" 
+                                     alt="${guild.name}" 
+                                     class="w-20 h-20 rounded-full mb-4">` :
+                                `<div class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-2xl font-bold mb-4">
+                                    ${guild.name.charAt(0)}
+                                </div>`
+                            }
+                            <div class="font-semibold text-lg mb-2">${guild.name}</div>
+                            <div class="text-sm text-gray-400">Click to manage</div>
+                        </div>
+                    </div>
+                `).join('') + '</div>';
+        }
+        
+        function selectGuild(guildId, guildName) {
+            window.location.href = `/guild/${guildId}`;
+        }
+    </script>
+</body>
+</html>

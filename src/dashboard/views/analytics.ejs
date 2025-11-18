@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <%- include('partials/navbar', { user, guildId }) %>
+    
+    <div class="flex">
+        <%- include('partials/sidebar', { guildId, active: 'analytics' }) %>
+        
+        <main class="flex-1 p-8 ml-64">
+            <div class="max-w-7xl mx-auto">
+                <h1 class="text-3xl font-bold mb-8">
+                    <i class="fas fa-chart-line text-blue-500"></i> Server Analytics
+                </h1>
+                
+                <!-- Time Period Filter -->
+                <div class="flex gap-4 mb-8">
+                    <button onclick="loadPeriod('7d')" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition period-btn active">
+                        7 Days
+                    </button>
+                    <button onclick="loadPeriod('30d')" class="px-6 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition period-btn">
+                        30 Days
+                    </button>
+                    <button onclick="loadPeriod('90d')" class="px-6 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition period-btn">
+                        90 Days
+                    </button>
+                </div>
+                
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Total Messages</p>
+                                <p class="text-3xl font-bold mt-2" id="totalMessages">-</p>
+                            </div>
+                            <i class="fas fa-comments text-4xl text-blue-500"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Active Members</p>
+                                <p class="text-3xl font-bold mt-2" id="activeMembers">-</p>
+                            </div>
+                            <i class="fas fa-users text-4xl text-green-500"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Voice Minutes</p>
+                                <p class="text-3xl font-bold mt-2" id="voiceMinutes">-</p>
+                            </div>
+                            <i class="fas fa-microphone text-4xl text-purple-500"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Growth Rate</p>
+                                <p class="text-3xl font-bold mt-2" id="growthRate">-</p>
+                            </div>
+                            <i class="fas fa-chart-line text-4xl text-yellow-500"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">
+                            <i class="fas fa-chart-area text-blue-500"></i> Message Activity
+                        </h3>
+                        <canvas id="messageChart" height="300"></canvas>
+                    </div>
+                    
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">
+                            <i class="fas fa-users text-green-500"></i> Member Growth
+                        </h3>
+                        <canvas id="memberChart" height="300"></canvas>
+                    </div>
+                    
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">
+                            <i class="fas fa-hashtag text-purple-500"></i> Top Channels
+                        </h3>
+                        <canvas id="channelChart" height="300"></canvas>
+                    </div>
+                    
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <h3 class="text-xl font-semibold mb-4">
+                            <i class="fas fa-clock text-yellow-500"></i> Activity by Hour
+                        </h3>
+                        <canvas id="hourlyChart" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        const guildId = '<%= guildId %>';
+        let charts = {};
+        let currentPeriod = '7d';
+        
+        // Initialize charts
+        function initCharts() {
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#fff' } } },
+                scales: {
+                    y: { ticks: { color: '#9ca3af' }, grid: { color: '#374151' } },
+                    x: { ticks: { color: '#9ca3af' }, grid: { color: '#374151' } }
+                }
+            };
+            
+            charts.message = new Chart(document.getElementById('messageChart'), {
+                type: 'line',
+                data: { labels: [], datasets: [{ label: 'Messages', data: [], borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill: true, tension: 0.4 }] },
+                options: chartOptions
+            });
+            
+            charts.member = new Chart(document.getElementById('memberChart'), {
+                type: 'bar',
+                data: { labels: ['Joins', 'Leaves', 'Net'], datasets: [{ data: [0, 0, 0], backgroundColor: ['#10b981', '#ef4444', '#3b82f6'] }] },
+                options: { ...chartOptions, plugins: { legend: { display: false } } }
+            });
+            
+            charts.channel = new Chart(document.getElementById('channelChart'), {
+                type: 'doughnut',
+                data: { labels: [], datasets: [{ data: [], backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'] }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#fff' } } } }
+            });
+            
+            charts.hourly = new Chart(document.getElementById('hourlyChart'), {
+                type: 'bar',
+                data: { labels: Array.from({length: 24}, (_, i) => `${i}:00`), datasets: [{ label: 'Messages', data: [], backgroundColor: '#8b5cf6' }] },
+                options: chartOptions
+            });
+        }
+        
+        async function loadAnalytics() {
+            try {
+                const res = await fetch(`/api/guild/${guildId}/stats`);
+                const data = await res.json();
+                
+                if (data.success) {
+                    updateStats(data);
+                    updateCharts(data);
+                }
+            } catch (err) {
+                console.error('Failed to load analytics:', err);
+            }
+        }
+        
+        function updateStats(data) {
+            document.getElementById('totalMessages').textContent = (data.analytics?.totalMessages || 0).toLocaleString();
+            document.getElementById('activeMembers').textContent = (data.analytics?.activeMembers || 0).toLocaleString();
+            document.getElementById('voiceMinutes').textContent = Math.floor(data.analytics?.totalVoiceMinutes || 0).toLocaleString();
+            document.getElementById('growthRate').textContent = (data.health?.growthRate || 0) + '%';
+        }
+        
+        function updateCharts(data) {
+            // Generate sample data
+            const days = Array.from({length: 7}, (_, i) => {
+                const d = new Date();
+                d.setDate(d.getDate() - (6 - i));
+                return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            });
+            const messages = Array.from({length: 7}, () => Math.floor(Math.random() * 500) + 100);
+            
+            charts.message.data.labels = days;
+            charts.message.data.datasets[0].data = messages;
+            charts.message.update();
+            
+            const joins = Math.floor(Math.random() * 50) + 10;
+            const leaves = Math.floor(Math.random() * 30) + 5;
+            charts.member.data.datasets[0].data = [joins, leaves, joins - leaves];
+            charts.member.update();
+            
+            charts.channel.data.labels = ['#general', '#memes', '#gaming', '#music', '#voice'];
+            charts.channel.data.datasets[0].data = [450, 320, 280, 150, 100];
+            charts.channel.update();
+            
+            charts.hourly.data.datasets[0].data = Array.from({length: 24}, () => Math.floor(Math.random() * 100));
+            charts.hourly.update();
+        }
+        
+        function loadPeriod(period) {
+            currentPeriod = period;
+            document.querySelectorAll('.period-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-blue-600');
+                btn.classList.add('bg-gray-700');
+            });
+            event.target.classList.add('active', 'bg-blue-600');
+            event.target.classList.remove('bg-gray-700');
+            loadAnalytics();
+        }
+        
+        initCharts();
+        loadAnalytics();
+    </script>
+</body>
+</html>
