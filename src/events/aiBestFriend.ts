@@ -7,20 +7,22 @@ export default {
     // Ignore bot messages
     if (message.author.bot) return;
 
-    // Check if bot is mentioned OR if it's a reply to the bot
+    if (message.author.bot || !message.guild) return;
+
+    // Prevent double replies with AI message system
     const botMention = `<@${client.user?.id}>`;
     const isMentioned = message.content.includes(botMention);
     const isReplyToBot = message.reference && message.mentions.repliedUser?.id === client.user?.id;
-    
-    // Only respond if mentioned OR replied to (not both to avoid double reply)
-    if (!isMentioned && !isReplyToBot) return;
-    
+
+    if (isMentioned || isReplyToBot) return;
+
+
     // If it's both a mention and a reply, only treat it as a mention
     const shouldUseReplyContext = isReplyToBot && !isMentioned;
 
     // Get the message without the mention
     let userMessage = message.content.replace(botMention, '').trim();
-    
+
     // If it's a reply to the bot (and not a mention), include context
     if (shouldUseReplyContext && message.reference) {
       try {
@@ -62,7 +64,7 @@ export default {
           body: JSON.stringify({
             contents: [{
               parts: [{
-           text: `You are the user's AI best friend. Your tone is warm, playful, caring, and very human-like.
+                text: `You are the user's AI best friend. Your tone is warm, playful, caring, and very human-like.
                   PERSONALITY:
                   • Talk casually like a real friend  
                   • Use natural emojis (😊🔥😅❤️‍🩹🤔)  
