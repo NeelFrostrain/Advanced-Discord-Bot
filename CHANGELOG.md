@@ -1,6 +1,119 @@
 # 📋 Discord Bot - Complete Changelog & Documentation
 
-## Version 1.2 - Major Update
+## Version 1.5 - AI Best Friend, Shop Expansion & Production Security
+
+**Release Date:** November 19, 2025  
+**Type:** Major Feature Update  
+**Status:** Production Ready
+
+### 🤖 AI Best Friend
+
+Added AI-powered chat feature using Google Gemini API:
+- Chat with bot using `/chat` command
+- Mention bot: `@BotName hello!`
+- Reply to bot messages for natural conversation
+- Conversation context memory
+- Warm, playful, supportive personality
+- Natural emojis and emotions (😊🔥😅❤️‍🩹)
+- Free Google Gemini API (15 requests/minute)
+
+### ✨ Features
+
+**Three Ways to Chat:**
+1. `/chat message:Hey!` - Slash command
+2. `@BotName hello!` - Mention the bot
+3. Reply to bot messages - Continue conversation
+
+**AI Personality:**
+- Talks like a real human friend
+- Detects emotions (happy, sad, excited, etc.)
+- Uses natural emojis
+- Casual, never formal or robotic
+- Supportive when user is down
+- Fun and hype when user is excited
+- 2-4 sentence responses
+
+### 📁 Files Added
+
+- `src/commands/fun/chat.ts` - Chat command
+- `src/events/aiBestFriend.ts` - AI event handler
+- `AI_BEST_FRIEND_SETUP.md` - Setup guide
+- `AI_BEST_FRIEND_FEATURE.md` - Feature documentation
+- `GET_GOOGLE_API_KEY.md` - API key guide
+- `COMMIT_V2.1.5.txt` - Commit instructions
+
+### 🗑️ Cleanup
+
+- Removed `list-models.js` (test script)
+- Removed `test-gemini-api.js` (test script)
+- Updated `package.json` to v2.1.5
+
+### 🐛 Bug Fixes
+
+- Fixed ephemeral deprecation warning in clear command
+- Fixed API response parsing
+- Added better error messages
+- Improved error handling
+
+### 🔧 Technical Details
+
+- **API:** Google Gemini (gemini-2.0-flash)
+- **Cost:** Free ($0.00)
+- **Rate Limit:** 15 requests/minute
+- **Response Time:** ~1-2 seconds
+- **Context:** Remembers previous message in replies
+
+---
+
+### 🏪 Shop System (130+ Items)
+
+**Added comprehensive shop system:**
+- 130+ items (from 6 to 130+)
+- 6-tier rarity system (Common → Mythic)
+- 8 item categories
+- Interactive filtering and pagination
+- Rarity-based color coding
+
+**Item Categories:**
+- Weapons: 27 items
+- Armor: 18 items
+- Consumables: 12 items
+- Accessories: 13 items
+- Materials: 14 items
+- Pets: 14 items
+- Boosts: 10 items
+- Lootboxes: 6 items
+
+### 🔒 Production Security
+
+**Enhanced security features:**
+- Debug commands auto-disabled in production
+- Environment-based command control
+- `/testdb` and `/debuglevels` disabled by default
+- Configurable via `ENABLE_DEBUG_COMMANDS` env var
+
+### 📁 Project Structure
+
+**Organized documentation:**
+```
+docs/
+├── setup/
+│   ├── AI_BEST_FRIEND_SETUP.md
+│   ├── GET_GOOGLE_API_KEY.md
+│   └── PRODUCTION_SETUP.md
+├── features/
+│   ├── AI_BEST_FRIEND_FEATURE.md
+│   ├── DEBUG_COMMANDS_DISABLED.md
+│   └── SHOP_ITEMS_UPDATE.md
+├── guides/
+└── COMMANDS.md
+```
+
+---
+
+## Previous Versions
+
+### Version 1.2 - User Mentions & Leaderboards
 
 ---
 

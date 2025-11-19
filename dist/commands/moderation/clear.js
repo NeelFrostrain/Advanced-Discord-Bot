@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
+import { SlashCommandBuilder, PermissionFlagsBits, MessageFlags } from 'discord.js';
 import { EmbedFactory } from '../../utils/embeds.js';
 export default {
     data: new SlashCommandBuilder()
@@ -16,7 +16,7 @@ export default {
     async execute(interaction, client) {
         const amount = interaction.options.getInteger('amount', true);
         const targetUser = interaction.options.getUser('user');
-        await interaction.deferReply({ ephemeral: true });
+        await interaction.deferReply({ flags: MessageFlags.Ephemeral });
         try {
             if (!interaction.channel || !interaction.channel.isTextBased() || interaction.channel.isDMBased()) {
                 const embed = EmbedFactory.error('Error', 'Cannot clear messages in this channel type.');

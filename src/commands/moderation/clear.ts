@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
+import { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, MessageFlags } from 'discord.js';
 import { ExtendedClient } from '../../types/index.js';
 import { EmbedFactory } from '../../utils/embeds.js';
 
@@ -23,7 +23,7 @@ export default {
     const amount = interaction.options.getInteger('amount', true);
     const targetUser = interaction.options.getUser('user');
 
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
     try {
       if (!interaction.channel || !interaction.channel.isTextBased() || interaction.channel.isDMBased()) {

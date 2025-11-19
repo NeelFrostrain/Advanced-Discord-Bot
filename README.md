@@ -62,6 +62,14 @@
 - **Welcome Messages** - Greet new members
 - **Database Management** - Sync, backup, debug tools
 
+### 🤖 AI Best Friend (NEW in v2.1.5)
+- **Chat with AI** - Natural conversations with AI
+- **Mention Detection** - Tag bot to chat
+- **Reply Detection** - Reply to bot messages
+- **Conversation Memory** - Remembers context
+- **Emotion Detection** - Responds to your mood
+- **Free Google Gemini API** - No cost!
+
 ### 📦 Utility
 - **User Info** - View user details
 - **Server Info** - View server statistics

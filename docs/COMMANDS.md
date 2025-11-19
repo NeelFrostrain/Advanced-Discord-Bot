@@ -12,7 +12,7 @@ Complete reference for all 70+ bot commands.
 - [Moderation (6)](#moderation-commands)
 - [Admin (10)](#admin-commands)
 - [Utility (8)](#utility-commands)
-- [Fun (7)](#fun-commands)
+- [Fun (8)](#fun-commands)
 
 ---
 
@@ -427,6 +427,15 @@ Set your AFK status.
 
 ## Fun Commands
 
+### `/chat <message>`
+**NEW in v2.1:** Chat with your AI best friend! 🤖💬
+- Warm, supportive, and fun personality
+- Responds with emotions and emojis
+- Talks like a real friend
+- Uses free Google Gemini API
+- **Also works by tagging the bot:** `@BotName your message`
+- **Cooldown:** 3 seconds
+
 ### `/8ball <question>`
 Ask the magic 8ball a question.
 - 21 different responses
@@ -459,11 +468,12 @@ Get an inspirational quote.
 
 ## Command Statistics
 
-- **Total Commands:** 76
-- **User Commands:** 56
+- **Total Commands:** 77
+- **User Commands:** 57
 - **Admin Commands:** 10
 - **Moderation Commands:** 6
 - **New in v2.0:** 4 database management commands
+- **New in v2.1:** AI Best Friend chat feature
 
 ### Breakdown by Category
 - **Economy:** 17 commands
