@@ -90,7 +90,7 @@ export default {
                     "If someone isn’t good to you, you don’t owe them space in your life."
                     USER SAID: "${userMessage}"
                     Reply naturally as their mysterious, confident, legendary best friend:`
-},
+                  },
                 ],
               },
             ],
@@ -129,3 +129,6 @@ export default {
     }
   },
 };
+
+
+
