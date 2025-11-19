@@ -1,6 +1,6 @@
 # 📋 Discord Bot - Complete Changelog & Documentation
 
-## Version 2.0 - Major Update
+## Version 1.2 - Major Update
 
 ---
 
@@ -725,6 +725,6 @@ This update provides a robust, reliable, and user-friendly Discord bot with:
 
 ---
 
-**Version:** 2.0  
+**Version:** 1.2  
 **Date:** November 19, 2025  
 **Status:** ✅ Complete & Tested
