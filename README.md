@@ -179,19 +179,19 @@ DASHBOARD_PORT=3000
 
 ### Leveling Commands (13)
 ```
-/rank [user]             # View rank card
-/rankstats [user]        # Detailed rank statistics
-/rankcompare <user>      # Compare ranks
-/leaderboard [type]      # Server leaderboard
-/toprank [limit]         # Top ranked users
-/rankrewards             # View rank rewards
-/rankconfig              # Configure leveling (Admin)
-/rankroles               # Manage rank roles (Admin)
-/givexp <user> <amount>  # Give XP (Admin)
-/removexp <user> <amount># Remove XP (Admin)
-/setxp <user> <amount>   # Set XP (Admin)
-/rankreset <user>        # Reset rank (Admin)
-```
+/rank [user]              # View rank card
+/rankstats [user]         # Detailed rank statistics
+/rankcompare <user>       # Compare ranks
+/leaderboard [type]       # Server leaderboard
+/toprank [limit]          # Top ranked users
+/rankrewards              # View rank rewards
+/rankconfig               # Configure leveling (Admin)
+/rankroles                # Manage rank roles (Admin)
+/givexp <user> <amount>   # Give XP (Admin)
+/removexp <user> <amount> # Remove XP (Admin)
+/setxp <user> <amount>    # Set XP (Admin)
+/rankreset <user>         # Reset rank (Admin)
+``` 
 
 ### Battle & RPG Commands (6)
 ```
