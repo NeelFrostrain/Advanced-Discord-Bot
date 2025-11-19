@@ -9,6 +9,15 @@ export default {
     .setDescription('Test database access (Admin only)')
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   async execute(interaction: ChatInputCommandInteraction, client: ExtendedClient) {
+    // Disable in production
+    if (process.env.NODE_ENV === 'production' && process.env.ENABLE_DEBUG_COMMANDS !== 'true') {
+      const embed = EmbedFactory.error(
+        'Command Disabled',
+        'This debug command is disabled in production mode.\n\nTo enable, set `ENABLE_DEBUG_COMMANDS=true` in your .env file.'
+      );
+      return interaction.reply({ embeds: [embed], ephemeral: true });
+    }
+
     await interaction.deferReply({ ephemeral: true });
 
     try {

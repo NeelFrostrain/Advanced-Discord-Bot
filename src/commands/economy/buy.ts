@@ -2,15 +2,7 @@ import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
 import { ExtendedClient } from '../../types/index.js';
 import { EmbedFactory } from '../../utils/embeds.js';
 import { getUser, updateUser, getDatabase } from '../../database/index.js';
-
-const shopItems = [
-  { id: 'sword', name: '⚔️ Sword', price: 500, type: 'weapon', damage: 10 },
-  { id: 'shield', name: '🛡️ Shield', price: 400, type: 'armor', defense: 8 },
-  { id: 'potion', name: '🧪 Health Potion', price: 50, type: 'consumable', heal: 50 },
-  { id: 'lootbox', name: '📦 Lootbox', price: 1000, type: 'lootbox', rarity: 'common' },
-  { id: 'pet_egg', name: '🥚 Pet Egg', price: 2000, type: 'pet', rarity: 'random' },
-  { id: 'xp_boost', name: '⭐ XP Boost', price: 1500, type: 'boost', multiplier: 2, duration: 3600000 }
-];
+import { getItemById, getRarityEmoji } from '../../data/shopItems.js';
 
 export default {
   data: new SlashCommandBuilder()
@@ -18,22 +10,20 @@ export default {
     .setDescription('Buy an item from the shop')
     .addStringOption(option =>
       option.setName('item')
-        .setDescription('The item ID to buy')
+        .setDescription('The item ID to buy (use /shop to see all items)')
         .setRequired(true)
-        .addChoices(
-          ...shopItems.map(item => ({ name: item.name, value: item.id }))
-        )
     )
     .addIntegerOption(option =>
       option.setName('amount')
         .setDescription('Amount to buy')
         .setMinValue(1)
+        .setMaxValue(100)
         .setRequired(false)
     ),
   async execute(interaction: ChatInputCommandInteraction, client: ExtendedClient) {
     const itemId = interaction.options.getString('item', true);
     const amount = interaction.options.getInteger('amount') || 1;
-    const item = shopItems.find(i => i.id === itemId);
+    const item = getItemById(itemId);
 
     if (!item) {
       const embed = EmbedFactory.error('Item Not Found', 'This item does not exist in the shop.');
@@ -65,9 +55,18 @@ export default {
 
       await db.set(inventoryPath, inventory);
 
+      const rarityEmoji = getRarityEmoji(item.rarity);
       const embed = EmbedFactory.success('Purchase Successful!')
-        .setDescription(`You bought **${amount}x ${item.name}** for **${totalCost.toLocaleString()}** coins!`)
-        .addFields({ name: '💰 Remaining Balance', value: `${user.balance.toLocaleString()} coins` });
+        .setDescription(`You bought **${amount}x ${rarityEmoji} ${item.name}** for **${totalCost.toLocaleString()}** coins!`)
+        .addFields(
+          { name: '💰 Remaining Balance', value: `${user.balance.toLocaleString()} coins`, inline: true },
+          { name: '📦 Item Type', value: item.type, inline: true },
+          { name: '✨ Rarity', value: `${rarityEmoji} ${item.rarity}`, inline: true }
+        );
+
+      if (item.description) {
+        embed.setFooter({ text: item.description });
+      }
 
       await interaction.reply({ embeds: [embed] });
     } catch (error) {
