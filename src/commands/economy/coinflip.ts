@@ -46,7 +46,7 @@ export default {
       await updateUser(interaction.user.id, interaction.guildId!, { balance: user.balance });
 
       const embed = EmbedFactory.custom(won ? '#00FF00' : '#FF0000', '🪙 Coinflip')
-        .setDescription(`The coin landed on **${result}**!`)
+        .setDescription(`<@${interaction.user.id}>, the coin landed on **${result}**!`)
         .addFields(
           { name: '🎯 Your Choice', value: choice, inline: true },
           { name: '🎁 Result', value: won ? `Won ${bet.toLocaleString()} coins!` : `Lost ${bet.toLocaleString()} coins!`, inline: true },

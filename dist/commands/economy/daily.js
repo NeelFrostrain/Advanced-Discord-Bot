@@ -27,7 +27,7 @@ export default {
             await updateUser(userId, guildId, { balance: user.balance });
             await db.set(cooldownKey, now);
             const embed = EmbedFactory.economy('Daily Reward Claimed!')
-                .setDescription(`You received **${amount.toLocaleString()}** coins! 🎁`)
+                .setDescription(`<@${interaction.user.id}> received **${amount.toLocaleString()}** coins! 🎁`)
                 .addFields({ name: '💰 New Balance', value: `${user.balance.toLocaleString()} coins` });
             await interaction.reply({ embeds: [embed] });
         }

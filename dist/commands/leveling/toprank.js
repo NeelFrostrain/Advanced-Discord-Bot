@@ -23,9 +23,7 @@ export default {
             for (let i = 0; i < leaderboard.length; i++) {
                 const user = leaderboard[i];
                 const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `**${i + 1}.**`;
-                const member = await interaction.guild?.members.fetch(user.id).catch(() => null);
-                const username = member ? member.user.username : 'Unknown User';
-                description += `${medal} ${username}\n`;
+                description += `${medal} <@${user.id}>\n`;
                 description += `└ Level **${user.level}** • ${user.xp.toLocaleString()} XP • ${user.messages || 0} messages\n\n`;
             }
             const embed = EmbedFactory.leveling(`🏆 Top ${limit} Ranks`)

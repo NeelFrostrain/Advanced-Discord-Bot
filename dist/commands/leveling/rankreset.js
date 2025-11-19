@@ -18,7 +18,7 @@ export default {
                 totalXP: 0,
                 messages: 0
             });
-            const embed = EmbedFactory.success('Rank Reset', `Successfully reset ${target.username}'s rank and XP.`);
+            const embed = EmbedFactory.success('Rank Reset', `Successfully reset <@${target.id}>'s rank and XP.`);
             await interaction.reply({ embeds: [embed] });
         }
         catch (error) {

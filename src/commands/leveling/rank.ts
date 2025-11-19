@@ -35,7 +35,7 @@ export default {
       const progressBar = createProgressBar(currentXP, requiredXP);
       const progressPercent = Math.round((currentXP / requiredXP) * 100);
 
-      const embed = EmbedFactory.leveling(`${target.username}'s Rank`)
+      const embed = EmbedFactory.leveling(`<@${target.id}>'s Rank`)
         .setThumbnail(target.displayAvatarURL({ size: 256 }))
         .setDescription(`${progressBar} **${progressPercent}%**`)
         .addFields(

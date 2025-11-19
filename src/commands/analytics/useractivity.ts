@@ -22,7 +22,7 @@ export default {
 
       if (!activity) {
         return interaction.editReply({
-          embeds: [EmbedFactory.error('No Data', `No activity data found for ${target.username}.`)]
+          embeds: [EmbedFactory.error('No Data', `No activity data found for <@${target.id}>.`)]
         });
       }
 
@@ -37,7 +37,7 @@ export default {
         .map(([emoji, count]) => `${emoji} (${count})`)
         .join(', ') || 'None';
 
-      const embed = EmbedFactory.leveling(`📊 ${target.username}'s Activity`)
+      const embed = EmbedFactory.leveling(`📊 <@${target.id}>'s Activity`)
         .setThumbnail(target.displayAvatarURL({ size: 256 }))
         .addFields(
           { name: '💬 Total Messages', value: activity.messages.toLocaleString(), inline: true },

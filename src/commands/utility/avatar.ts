@@ -14,7 +14,7 @@ export default {
   async execute(interaction: ChatInputCommandInteraction, client: ExtendedClient) {
     const target = interaction.options.getUser('user') || interaction.user;
 
-    const embed = EmbedFactory.info(`${target.username}'s Avatar`)
+    const embed = EmbedFactory.info(`<@${target.id}>'s Avatar`)
       .setImage(target.displayAvatarURL({ size: 1024 }));
 
     await interaction.reply({ embeds: [embed] });

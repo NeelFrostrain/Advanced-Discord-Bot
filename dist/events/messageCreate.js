@@ -56,9 +56,10 @@ export default {
                     }
                 }
                 // Send level up message
-                const embed = EmbedFactory.leveling('Level Up! 🎉')
-                    .setDescription(`Congratulations ${message.author}! You've reached **Level ${result.newLevel}**!`)
-                    .addFields({ name: '⭐ XP Gained', value: `+${result.xpGained}`, inline: true }, { name: '💫 Total XP', value: `${result.xp.toLocaleString()}`, inline: true });
+                const embed = EmbedFactory.leveling('⭐ Level Up! 🎉')
+                    .setDescription(`Congratulations <@${message.author.id}>! You've reached **Level ${result.newLevel}**!`)
+                    .addFields({ name: '⭐ XP Gained', value: `+${result.xpGained}`, inline: true }, { name: '💫 Total XP', value: `${result.xp.toLocaleString()}`, inline: true })
+                    .setTimestamp();
                 if (rankRole) {
                     embed.addFields({ name: '🎁 Reward Unlocked', value: `<@&${rankRole.roleId}>` });
                 }
@@ -77,40 +78,81 @@ export default {
         catch (error) {
             console.error('XP system error:', error);
         }
-        // Prefix commands (optional)
+        // Prefix commands
         const prefix = process.env.PREFIX || '!';
         if (!message.content.startsWith(prefix))
             return;
         const args = message.content.slice(prefix.length).trim().split(/ +/);
         const commandName = args.shift()?.toLowerCase();
-        // Handle basic prefix commands
-        if (commandName === 'help') {
-            const embed = EmbedFactory.info('📚 Help - Use Slash Commands!')
-                .setDescription('This bot uses **Slash Commands** for better Discord integration!\n\n' +
-                '**How to use:**\n' +
-                '• Type `/` in the chat box\n' +
-                '• Select a command from the menu\n' +
-                '• Fill in the options\n\n' +
-                '**Popular Commands:**\n' +
-                '`/help` - View all commands\n' +
-                '`/rank` - Check your rank\n' +
-                '`/balance` - Check your balance\n' +
-                '`/hunt` - Hunt monsters\n' +
-                '`/serverstats` - View server stats\n\n' +
-                '**Need more help?**\n' +
-                'Use `/help` to see all 70+ commands organized by category!')
-                .setFooter({ text: 'Tip: Slash commands provide auto-complete and validation!' });
-            message.reply({ embeds: [embed] }).catch(() => { });
+        if (!commandName)
+            return;
+        // Find and execute the slash command
+        const command = client.commands.get(commandName);
+        if (command) {
+            try {
+                // Create a mock interaction object for prefix commands
+                const mockInteraction = {
+                    user: message.author,
+                    member: message.member,
+                    guild: message.guild,
+                    channel: message.channel,
+                    guildId: message.guild.id,
+                    channelId: message.channel.id,
+                    replied: false,
+                    deferred: false,
+                    // Mock options
+                    options: {
+                        getString: (name) => args[0] || null,
+                        getUser: (name) => message.mentions.users.first() || null,
+                        getInteger: (name) => {
+                            const num = parseInt(args[0]);
+                            return isNaN(num) ? null : num;
+                        },
+                        getBoolean: (name) => {
+                            const val = args[0]?.toLowerCase();
+                            return val === 'true' || val === 'yes' ? true : val === 'false' || val === 'no' ? false : null;
+                        },
+                        getChannel: (name) => message.mentions.channels.first() || null,
+                        getRole: (name) => message.mentions.roles.first() || null,
+                        getMentionable: (name) => message.mentions.users.first() || message.mentions.roles.first() || null
+                    },
+                    // Mock reply methods
+                    reply: async (options) => {
+                        mockInteraction.replied = true;
+                        return message.reply(options);
+                    },
+                    followUp: async (options) => {
+                        if ('send' in message.channel) {
+                            return message.channel.send(options);
+                        }
+                        return null;
+                    },
+                    editReply: async (options) => {
+                        return message.edit(options);
+                    },
+                    deferReply: async (options) => {
+                        mockInteraction.deferred = true;
+                        if ('sendTyping' in message.channel) {
+                            return message.channel.sendTyping();
+                        }
+                        return null;
+                    },
+                    fetchReply: async () => {
+                        return message;
+                    }
+                };
+                // Execute the command
+                await command.execute(mockInteraction, client);
+            }
+            catch (error) {
+                console.error(`Prefix command error (${commandName}):`, error);
+                const errorEmbed = EmbedFactory.error('Command Error', 'There was an error executing this command!');
+                message.reply({ embeds: [errorEmbed] }).catch(() => { });
+            }
         }
-        else if (commandName === 'ping') {
-            const embed = EmbedFactory.info('🏓 Pong!')
-                .setDescription(`Use \`/ping\` for detailed latency information!`);
-            message.reply({ embeds: [embed] }).catch(() => { });
-        }
-        else if (commandName) {
-            // For any other prefix command, suggest using slash commands
-            const embed = EmbedFactory.warning('Use Slash Commands', `Please use \`/${commandName}\` instead of \`${prefix}${commandName}\`\n\n` +
-                'This bot uses Discord\'s modern slash commands for better functionality!');
+        else {
+            // Command not found
+            const embed = EmbedFactory.warning('Command Not Found', `Command \`${prefix}${commandName}\` not found.\n\nUse \`${prefix}help\` to see all commands!`);
             message.reply({ embeds: [embed] }).catch(() => { });
         }
     }

@@ -25,10 +25,10 @@ export default {
         }
         try {
             const result = await addXP(target.id, interaction.guildId, amount);
-            const embed = EmbedFactory.success('XP Given', `Successfully gave **${amount} XP** to ${target.username}!`)
+            const embed = EmbedFactory.success('XP Given', `Successfully gave **${amount} XP** to <@${target.id}>!`)
                 .addFields({ name: '📊 New Level', value: `${result.level}`, inline: true }, { name: '💫 Total XP', value: `${result.xp.toLocaleString()}`, inline: true });
             if (result.leveledUp) {
-                embed.addFields({ name: '🎉 Level Up!', value: `${target.username} leveled up to **${result.newLevel}**!` });
+                embed.addFields({ name: '🎉 Level Up!', value: `<@${target.id}> leveled up to **${result.newLevel}**!` });
             }
             await interaction.reply({ embeds: [embed] });
         }

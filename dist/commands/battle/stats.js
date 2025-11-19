@@ -23,7 +23,7 @@ export default {
             const armorDefense = equipment.armor?.defense || 0;
             const totalDamage = baseDamage + weaponDamage;
             const totalDefense = baseDefense + armorDefense;
-            const embed = EmbedFactory.battle(`${target.username}'s Battle Stats`)
+            const embed = EmbedFactory.battle(`<@${target.id}>'s Battle Stats`)
                 .setThumbnail(target.displayAvatarURL())
                 .addFields({ name: '⚔️ Attack Power', value: `${totalDamage} (Base: ${baseDamage} + Weapon: ${weaponDamage})`, inline: false }, { name: '🛡️ Defense', value: `${totalDefense} (Base: ${baseDefense} + Armor: ${armorDefense})`, inline: false }, { name: '📊 Level', value: `${levelData.level}`, inline: true }, { name: '🐾 Pets', value: `${pets.pets.length}`, inline: true }, { name: '❤️ HP', value: '100', inline: true });
             await interaction.reply({ embeds: [embed] });

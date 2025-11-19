@@ -22,7 +22,7 @@ export default {
 
       if (!inviteUse) {
         return interaction.reply({
-          embeds: [EmbedFactory.error('No Data', `No invite data found for ${target.username}.`)],
+          embeds: [EmbedFactory.error('No Data', `No invite data found for <@${target.id}>.`)],
           ephemeral: true
         });
       }

@@ -64,7 +64,7 @@ export default {
         );
 
       const embed = EmbedFactory.economy('Trade Offer')
-        .setDescription(`${interaction.user} wants to give you **${amount.toLocaleString()}** coins!`);
+        .setDescription(`<@${interaction.user.id}> wants to give <@${target.id}> **${amount.toLocaleString()}** coins!`);
 
       await interaction.reply({
         content: `${target}`,
@@ -98,7 +98,7 @@ export default {
             await updateUser(target.id, interaction.guildId!, { balance: toUser.balance });
 
             const successEmbed = EmbedFactory.success('Trade Successful!')
-              .setDescription(`${interaction.user} gave ${target} **${amount.toLocaleString()}** coins!`);
+              .setDescription(`<@${interaction.user.id}> gave <@${target.id}> **${amount.toLocaleString()}** coins!`);
 
             await i.update({ embeds: [successEmbed], components: [] });
           }

@@ -20,14 +20,14 @@ export default {
 
       if (!stats) {
         return interaction.reply({
-          embeds: [EmbedFactory.error('No Data', `${target.username} hasn't invited anyone yet.`)],
+          embeds: [EmbedFactory.error('No Data', `<@${target.id}> hasn't invited anyone yet.`)],
           ephemeral: true
         });
       }
 
       const totalValid = stats.realInvites - stats.leftInvites;
 
-      const embed = EmbedFactory.leveling(`🎫 ${target.username}'s Invites`)
+      const embed = EmbedFactory.leveling(`🎫 <@${target.id}>'s Invites`)
         .setThumbnail(target.displayAvatarURL())
         .addFields(
           { name: '✅ Total Invites', value: stats.totalInvites.toString(), inline: true },

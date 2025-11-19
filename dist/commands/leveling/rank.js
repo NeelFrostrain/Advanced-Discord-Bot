@@ -26,7 +26,7 @@ export default {
             }
             const progressBar = createProgressBar(currentXP, requiredXP);
             const progressPercent = Math.round((currentXP / requiredXP) * 100);
-            const embed = EmbedFactory.leveling(`${target.username}'s Rank`)
+            const embed = EmbedFactory.leveling(`<@${target.id}>'s Rank`)
                 .setThumbnail(target.displayAvatarURL({ size: 256 }))
                 .setDescription(`${progressBar} **${progressPercent}%**`)
                 .addFields({ name: '🏆 Rank', value: `#${rank}`, inline: true }, { name: '📊 Level', value: `${level}`, inline: true }, { name: '⭐ XP', value: `${currentXP}/${requiredXP}`, inline: true }, { name: '💫 Total XP', value: `${levelData.xp.toLocaleString()}`, inline: true }, { name: '💬 Messages', value: `${levelData.messages || 0}`, inline: true }, { name: '📈 To Next Level', value: `${(requiredXP - currentXP).toLocaleString()} XP`, inline: true });

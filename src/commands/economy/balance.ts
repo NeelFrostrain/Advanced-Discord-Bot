@@ -18,7 +18,7 @@ export default {
     try {
       const user = await getUser(target.id, interaction.guildId!);
 
-      const embed = EmbedFactory.economy(`${target.username}'s Balance`)
+      const embed = EmbedFactory.economy(`<@${target.id}>'s Balance`)
         .setThumbnail(target.displayAvatarURL())
         .addFields(
           { name: '💵 Wallet', value: `${user.balance.toLocaleString()} coins`, inline: true },

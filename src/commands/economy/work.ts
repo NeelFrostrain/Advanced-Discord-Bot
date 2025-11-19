@@ -46,7 +46,7 @@ export default {
       await db.set(cooldownKey, now);
 
       const embed = EmbedFactory.economy('Work Complete!')
-        .setDescription(`💼 You worked as a **${job}** and earned **${earned}** coins!`)
+        .setDescription(`💼 <@${interaction.user.id}> worked as a **${job}** and earned **${earned}** coins!`)
         .addFields({ name: '💰 New Balance', value: `${user.balance.toLocaleString()} coins` });
 
       await interaction.reply({ embeds: [embed] });

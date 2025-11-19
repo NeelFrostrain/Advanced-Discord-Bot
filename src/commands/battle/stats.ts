@@ -33,7 +33,7 @@ export default {
       const totalDamage = baseDamage + weaponDamage;
       const totalDefense = baseDefense + armorDefense;
 
-      const embed = EmbedFactory.battle(`${target.username}'s Battle Stats`)
+      const embed = EmbedFactory.battle(`<@${target.id}>'s Battle Stats`)
         .setThumbnail(target.displayAvatarURL())
         .addFields(
           { name: '⚔️ Attack Power', value: `${totalDamage} (Base: ${baseDamage} + Weapon: ${weaponDamage})`, inline: false },

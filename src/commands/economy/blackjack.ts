@@ -88,7 +88,7 @@ export default {
         games.delete(gameId);
         user.balance += Math.floor(bet * 1.5);
         await updateUser(interaction.user.id, interaction.guildId!, { balance: user.balance });
-        embed.setDescription('🎉 BLACKJACK! You win 1.5x your bet!');
+        embed.setDescription(`🎉 BLACKJACK! <@${interaction.user.id}> wins 1.5x your bet!`);
         embed.setColor('#00FF00');
         return interaction.reply({ embeds: [embed] });
       }
@@ -123,6 +123,7 @@ export default {
             await updateUser(interaction.user.id, interaction.guildId!, { balance: user.balance });
 
             const bustEmbed = EmbedFactory.error('Bust!')
+              .setDescription(`<@${interaction.user.id}> busted!`)
               .addFields(
                 { name: 'Your Hand', value: `${formatHand(game.playerHand)} (${newValue})`, inline: true },
                 { name: 'Result', value: `Lost ${bet.toLocaleString()} coins`, inline: true },

@@ -38,7 +38,7 @@ export default {
       if (xpDiff > 0) {
         comparison = `You are ahead by **${xpDiff.toLocaleString()} XP** and **${levelDiff} level${Math.abs(levelDiff) !== 1 ? 's' : ''}**! 🎉`;
       } else if (xpDiff < 0) {
-        comparison = `${target.username} is ahead by **${Math.abs(xpDiff).toLocaleString()} XP** and **${Math.abs(levelDiff)} level${Math.abs(levelDiff) !== 1 ? 's' : ''}**! 💪`;
+        comparison = `<@${target.id}> is ahead by **${Math.abs(xpDiff).toLocaleString()} XP** and **${Math.abs(levelDiff)} level${Math.abs(levelDiff) !== 1 ? 's' : ''}**! 💪`;
       } else {
         comparison = `You're tied! Both at the same XP! 🤝`;
       }
@@ -46,9 +46,9 @@ export default {
       const embed = EmbedFactory.leveling('Rank Comparison')
         .setDescription(comparison)
         .addFields(
-          { name: `${interaction.user.username}`, value: `**Level ${user1Calc.level}**\n${user1Data.xp.toLocaleString()} XP\n${user1Data.messages || 0} messages`, inline: true },
+          { name: `<@${interaction.user.id}>`, value: `**Level ${user1Calc.level}**\n${user1Data.xp.toLocaleString()} XP\n${user1Data.messages || 0} messages`, inline: true },
           { name: '⚔️', value: 'VS', inline: true },
-          { name: `${target.username}`, value: `**Level ${user2Calc.level}**\n${user2Data.xp.toLocaleString()} XP\n${user2Data.messages || 0} messages`, inline: true }
+          { name: `<@${target.id}>`, value: `**Level ${user2Calc.level}**\n${user2Data.xp.toLocaleString()} XP\n${user2Data.messages || 0} messages`, inline: true }
         )
         .addFields(
           { name: '📊 XP Difference', value: `${xpDiff > 0 ? '+' : ''}${xpDiff.toLocaleString()}`, inline: true },

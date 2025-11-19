@@ -46,7 +46,7 @@ export default {
 
       const embed = EmbedFactory.success(
         'XP Removed',
-        `Successfully removed **${amount} XP** from ${target.username}!`
+        `Successfully removed **${amount} XP** from <@${target.id}>!`
       )
         .addFields(
           { name: '📊 New Level', value: `${level}`, inline: true },
@@ -54,7 +54,7 @@ export default {
         );
 
       if (level < oldLevel) {
-        embed.addFields({ name: '📉 Level Down', value: `${target.username} is now level **${level}** (was ${oldLevel})` });
+        embed.addFields({ name: '📉 Level Down', value: `<@${target.id}> is now level **${level}** (was ${oldLevel})` });
       }
 
       await interaction.reply({ embeds: [embed] });

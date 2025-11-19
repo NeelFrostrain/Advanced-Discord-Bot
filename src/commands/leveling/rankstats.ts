@@ -42,7 +42,7 @@ export default {
       // Calculate XP to next level
       const xpToNext = requiredXP - currentXP;
 
-      const embed = EmbedFactory.leveling(`${target.username}'s Rank Statistics`)
+      const embed = EmbedFactory.leveling(`<@${target.id}>'s Rank Statistics`)
         .setThumbnail(target.displayAvatarURL({ size: 256 }))
         .setDescription(`${progressBar}\n**${progressPercent}%** to next level`)
         .addFields(

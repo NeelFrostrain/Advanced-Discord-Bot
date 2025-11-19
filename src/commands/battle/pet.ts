@@ -84,7 +84,7 @@ export default {
         await updateUser(interaction.user.id, interaction.guildId!, { balance: user.balance });
 
         const embed = EmbedFactory.success('Pet Summoned!')
-          .setDescription(`You summoned a **${pet.name}**!`)
+          .setDescription(`<@${interaction.user.id}> summoned a **${pet.name}**!`)
           .addFields(
             { name: '🎭 Rarity', value: pet.rarity, inline: true },
             { name: '⚔️ Damage', value: `${pet.damage}`, inline: true },

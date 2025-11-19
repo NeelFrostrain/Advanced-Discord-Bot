@@ -26,10 +26,10 @@ export default {
       .map(role => role.toString())
       .slice(0, 10);
 
-    const embed = EmbedFactory.info(`${target.username}'s Information`)
+    const embed = EmbedFactory.info(`<@${target.id}>'s Information`)
       .setThumbnail(target.displayAvatarURL({ size: 256 }))
       .addFields(
-        { name: '👤 Username', value: target.username, inline: true },
+        { name: '👤 User', value: `<@${target.id}>`, inline: true },
         { name: '🆔 ID', value: target.id, inline: true },
         { name: '🤖 Bot', value: target.bot ? 'Yes' : 'No', inline: true },
         { name: '📅 Account Created', value: `<t:${Math.floor(target.createdTimestamp / 1000)}:R>`, inline: true },

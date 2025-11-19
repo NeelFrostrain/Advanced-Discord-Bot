@@ -85,7 +85,7 @@ export default {
                 if (i.customId === 'accept_battle') {
                     const battle = simulateBattle(100, 20, 100, 20);
                     const resultEmbed = EmbedFactory.battle('Battle Results')
-                        .setDescription(battle.log.join('\n'));
+                        .setDescription(`${battle.won ? `<@${interaction.user.id}>` : `<@${target.id}>`} won the battle!\n\n${battle.log.join('\n')}`);
                     if (wager > 0) {
                         const winner = battle.won ? interaction.user.id : target.id;
                         const loser = battle.won ? target.id : interaction.user.id;
@@ -96,11 +96,14 @@ export default {
                             winnerUser.balance += wager;
                             await updateUser(winner, interaction.guildId, { balance: winnerUser.balance });
                             await updateUser(loser, interaction.guildId, { balance: loserUser.balance });
-                            resultEmbed.addFields({ name: 'Winner', value: `<@${winner}> won ${wager.toLocaleString()} coins!` });
+                            resultEmbed.addFields({ name: '💰 Winner', value: `<@${winner}> won ${wager.toLocaleString()} coins!` });
                         }
                         else {
-                            resultEmbed.addFields({ name: 'Note', value: 'Loser didn\'t have enough coins for wager.' });
+                            resultEmbed.addFields({ name: '⚠️ Note', value: `<@${loser}> didn't have enough coins for wager.` });
                         }
+                    }
+                    else {
+                        resultEmbed.addFields({ name: '🏆 Winner', value: `<@${battle.won ? interaction.user.id : target.id}>` });
                     }
                     await i.update({ embeds: [resultEmbed], components: [] });
                 }

@@ -93,7 +93,7 @@ export default {
 
       const battle = simulateBattle(playerHP, playerDamage, monster.hp, monster.damage);
 
-      const embed = EmbedFactory.battle(`Hunting ${monster.name}`)
+      const embed = EmbedFactory.battle(`<@${userId}> Hunting ${monster.name}`)
         .setDescription(battle.log.join('\n'));
 
       if (battle.won) {
@@ -108,6 +108,8 @@ export default {
           { name: '⭐ XP Earned', value: `${monster.xp.toLocaleString()}`, inline: true },
           { name: '❤️ HP Remaining', value: `${battle.remainingHP}`, inline: true }
         );
+      } else {
+        embed.setDescription(`<@${userId}> lost the hunt!\n\n${battle.log.join('\n')}`);
       }
 
       await db.set(cooldownKey, now);

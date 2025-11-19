@@ -26,7 +26,7 @@ export default {
 
       const embed = EmbedFactory.success(
         'Rank Reset',
-        `Successfully reset ${target.username}'s rank and XP.`
+        `Successfully reset <@${target.id}>'s rank and XP.`
       );
 
       await interaction.reply({ embeds: [embed] });

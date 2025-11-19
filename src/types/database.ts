@@ -199,3 +199,46 @@ export interface JoinQualityMetrics {
   daysInServer: number;
   qualityScore: number;
 }
+
+// TempVoice System
+export interface TempVoiceChannel {
+  channelId: string;
+  ownerId: string;
+  guildId: string;
+  createdAt: number;
+  settings: {
+    name?: string;
+    limit?: number;
+    locked?: boolean;
+    hidden?: boolean;
+    bitrate?: number;
+  };
+  permissions: {
+    permitted: string[];
+    rejected: string[];
+  };
+}
+
+export interface TempVoiceConfig {
+  guildId: string;
+  enabled: boolean;
+  joinToCreateChannels: string[];
+  category: string;
+  template: string;
+  defaultSettings: {
+    bitrate: number;
+    userLimit: number;
+    autoDeleteTimeout: number;
+    visibility: 'public' | 'hidden';
+  };
+  logChannel?: string;
+}
+
+export interface TempVoiceTemplate {
+  id: string;
+  name: string;
+  format: string;
+  defaultBitrate: number;
+  defaultLimit: number;
+  category: string;
+}

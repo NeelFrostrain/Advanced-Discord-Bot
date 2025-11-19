@@ -20,7 +20,7 @@ export default {
       const inventoryPath = `inventory.${interaction.guildId}.${target.id}`;
       const inventory = await db.get(inventoryPath) || { items: [] };
 
-      const embed = EmbedFactory.economy(`${target.username}'s Inventory`)
+      const embed = EmbedFactory.economy(`<@${target.id}>'s Inventory`)
         .setThumbnail(target.displayAvatarURL());
 
       if (!inventory.items || inventory.items.length === 0) {
