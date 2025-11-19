@@ -1,6 +1,7 @@
 import { MongoDBAdapter } from './MongoDBAdapter.js';
 import { JsonAdapter } from './JsonAdapter.js';
 import chalk from 'chalk';
+export { MongoDBAdapter };
 let db;
 let usingMongoDB = false;
 export async function initializeDatabase(mongoUri) {
@@ -46,6 +47,11 @@ export function getDatabase() {
 }
 export function isUsingMongoDB() {
     return usingMongoDB;
+}
+export async function forceBackup() {
+    if (usingMongoDB && db instanceof MongoDBAdapter) {
+        await db.forceBackup();
+    }
 }
 // Helper functions for common operations
 export async function getUser(userId, guildId = 'global') {

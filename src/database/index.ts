@@ -3,6 +3,8 @@ import { MongoDBAdapter } from './MongoDBAdapter.js';
 import { JsonAdapter } from './JsonAdapter.js';
 import chalk from 'chalk';
 
+export { MongoDBAdapter };
+
 let db: DatabaseAdapter;
 let usingMongoDB = false;
 
@@ -56,6 +58,12 @@ export function getDatabase(): DatabaseAdapter {
 
 export function isUsingMongoDB(): boolean {
   return usingMongoDB;
+}
+
+export async function forceBackup(): Promise<void> {
+  if (usingMongoDB && db instanceof MongoDBAdapter) {
+    await (db as any).forceBackup();
+  }
 }
 
 // Helper functions for common operations

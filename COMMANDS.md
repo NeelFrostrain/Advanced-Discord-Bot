@@ -10,8 +10,8 @@ Complete reference for all 70+ bot commands.
 - [Analytics (4)](#analytics-commands)
 - [Invites (5)](#invite-commands)
 - [Moderation (6)](#moderation-commands)
-- [Admin (6)](#admin-commands)
-- [Utility (9)](#utility-commands)
+- [Admin (10)](#admin-commands)
+- [Utility (8)](#utility-commands)
 - [Fun (7)](#fun-commands)
 
 ---
@@ -25,17 +25,17 @@ Check your or another user's balance.
 
 ### `/daily`
 Claim your daily reward.
-- **Reward:** 500 coins (configurable)
+- **Reward:** 1000 coins (configurable)
 - **Cooldown:** 24 hours
 
 ### `/weekly`
 Claim your weekly reward.
-- **Reward:** 3500 coins (configurable)
+- **Reward:** 5000 coins (configurable)
 - **Cooldown:** 7 days
 
 ### `/work`
 Work to earn money.
-- **Reward:** 50-200 coins (random, configurable)
+- **Reward:** 100-500 coins (random, configurable)
 - **Cooldown:** 1 hour
 
 ### `/deposit <amount>`
@@ -120,11 +120,13 @@ Play roulette.
 ### `/rank [user]`
 Check your or another user's rank card.
 - Shows server rank, level, XP, progress
+- **Fixed in v2.0:** Proper user mentions and notifications
 - **Cooldown:** None
 
 ### `/rankstats [user]`
 View detailed ranking statistics.
 - Comprehensive XP breakdown
+- **Fixed in v2.0:** Proper user mentions
 - **Cooldown:** None
 
 ### `/rankcard [colors]`
@@ -135,17 +137,20 @@ Customize your rank card appearance.
 ### `/rankcompare <user>`
 Compare your rank with another user.
 - Side-by-side comparison
+- **Fixed in v2.0:** Proper user mentions
 - **Cooldown:** None
 
 ### `/leaderboard [type]`
 View server leaderboard.
 - **Types:** Levels, Economy
-- Shows top 10 users
+- Shows top 10 users per page
+- **Fixed in v2.0:** Accurate data retrieval, proper sorting, pagination
 - **Cooldown:** None
 
 ### `/toprank [limit]`
 View extended leaderboard.
 - Configurable limit (5-25 users)
+- **Fixed in v2.0:** Proper user mentions
 - **Cooldown:** None
 
 ### `/rankrewards`
@@ -171,14 +176,17 @@ Manage rank role rewards.
 
 ### `/givexp <user> <amount>` (Admin)
 Give XP to a user.
+- **Fixed in v2.0:** Proper user mentions
 - **Permission:** Administrator
 
 ### `/removexp <user> <amount>` (Admin)
 Remove XP from a user.
+- **Fixed in v2.0:** Proper user mentions
 - **Permission:** Administrator
 
 ### `/rankreset <user>` (Admin)
 Reset a user's rank and XP.
+- **Fixed in v2.0:** Proper user mentions
 - **Permission:** Administrator
 
 ### `/setxp <user> <xp>` (Admin)
@@ -193,18 +201,21 @@ Set a user's exact XP amount.
 Hunt monsters for rewards.
 - **Monsters:** Slime, Goblin, Wolf, Orc, Dragon
 - **Rewards:** Coins + XP
+- **Fixed in v2.0:** Proper user mentions
 - **Cooldown:** 30 seconds
 
 ### `/battle <user> [wager]`
 Challenge another user to PvP battle.
 - Turn-based combat
 - Optional coin wager
+- **Fixed in v2.0:** Proper user mentions
 - **Cooldown:** 60 seconds
 
 ### `/pet view|summon`
 Pet system commands.
 - `view` - View your pets
 - `summon` - Summon a random pet (2000 coins)
+- **Fixed in v2.0:** Proper user mentions
 - **Cooldown:** None
 
 ### `/equip <item>`
@@ -220,6 +231,7 @@ View your equipped items.
 ### `/stats [user]`
 View battle stats.
 - Attack power, defense, level, pets, HP
+- **Fixed in v2.0:** Proper user mentions
 - **Cooldown:** None
 
 ---
@@ -242,6 +254,7 @@ View most active members.
 View detailed user activity statistics.
 - Messages, voice, reactions, emojis
 - Activity & engagement scores
+- **Fixed in v2.0:** Proper user mentions
 - **Cooldown:** None
 
 ### `/channelstats`
@@ -257,6 +270,7 @@ View channel activity rankings.
 ### `/invites [user]`
 Check invite statistics.
 - Total, real, fake, left invites
+- **Fixed in v2.0:** Proper user mentions
 - **Cooldown:** None
 
 ### `/inviteleaderboard [limit]`
@@ -268,6 +282,7 @@ View top inviters.
 ### `/whoinvited <user>`
 Check who invited a user.
 - Inviter information, account age, join method
+- **Fixed in v2.0:** Proper user mentions
 - **Cooldown:** None
 
 ### `/fakeinvites [days]` (Admin)
@@ -347,6 +362,27 @@ Send an announcement.
 Purge messages (alias for clear).
 - **Permission:** Manage Messages
 
+### `/syncdb <direction>` (Admin)
+**NEW in v2.0:** Sync data between MongoDB and JSON.
+- **Directions:** "JSON → MongoDB" or "MongoDB → JSON"
+- **Permission:** Administrator
+- **Use:** Manual database synchronization
+
+### `/backup` (Admin)
+**NEW in v2.0:** Force immediate MongoDB → JSON backup.
+- **Permission:** Administrator
+- **Use:** Create instant backup of all data
+
+### `/testdb` (Admin)
+**NEW in v2.0:** Test database access and verify data.
+- **Permission:** Administrator
+- **Use:** Diagnose database issues
+
+### `/debuglevels` (Admin)
+**NEW in v2.0:** Show raw database structure for debugging.
+- **Permission:** Administrator
+- **Use:** Debug leaderboard and rank issues
+
 ---
 
 ## Utility Commands
@@ -363,10 +399,12 @@ View all bot commands.
 ### `/avatar [user]`
 Get a user's avatar.
 - High resolution (1024x1024)
+- **Fixed in v2.0:** Proper user mentions
 
 ### `/userinfo [user]`
 Get information about a user.
 - Username, ID, account age, join date, roles
+- **Fixed in v2.0:** Proper user mentions
 
 ### `/serverinfo`
 Get information about the server.
@@ -384,10 +422,6 @@ Set a reminder.
 ### `/afk [reason]`
 Set your AFK status.
 - Bot notifies others when you're mentioned
-
-### `/qrcode <text>`
-Generate a QR code.
-- Creates QR code from text
 
 ---
 
@@ -425,10 +459,22 @@ Get an inspirational quote.
 
 ## Command Statistics
 
-- **Total Commands:** 70+
-- **User Commands:** 50+
-- **Admin Commands:** 15+
+- **Total Commands:** 76
+- **User Commands:** 56
+- **Admin Commands:** 10
 - **Moderation Commands:** 6
+- **New in v2.0:** 4 database management commands
+
+### Breakdown by Category
+- **Economy:** 17 commands
+- **Leveling:** 13 commands
+- **Battle:** 6 commands
+- **Analytics:** 4 commands
+- **Invites:** 5 commands
+- **Moderation:** 6 commands
+- **Admin:** 10 commands
+- **Utility:** 8 commands
+- **Fun:** 7 commands
 
 ## Permission Levels
 
@@ -444,8 +490,35 @@ Most commands available to all users with cooldowns to prevent spam.
 - Rank configuration
 - Invite configuration
 - Giveaways, roles, welcome messages
+- Database management (NEW in v2.0)
 
 ---
 
-**Last Updated:** November 2025  
-**Version:** 3.0
+## Version 2.0 Command Improvements
+
+### Fixed User Mentions (19 Commands)
+All commands now properly mention users outside embeds for notifications:
+- Leveling: `/rank`, `/rankstats`, `/rankcompare`, `/givexp`, `/removexp`, `/rankreset`, `/leaderboard`, `/toprank`
+- Economy: `/balance`, `/inventory`, `/trade`
+- Battle: `/stats`, `/battle`, `/hunt`, `/pet`
+- Utility: `/userinfo`, `/avatar`
+- Invites: `/invites`, `/whoinvited`
+- Analytics: `/useractivity`
+
+### Enhanced Leaderboard
+- Fixed "No data available" bug
+- Accurate ranking and sorting
+- Pagination support
+- Medal emojis for top 3
+
+### New Database Commands
+- `/syncdb` - Manual database sync
+- `/backup` - Force backup
+- `/testdb` - Test database
+- `/debuglevels` - Debug structure
+
+---
+
+**Last Updated:** November 19, 2025  
+**Version:** 2.0.0  
+**Status:** Production Ready

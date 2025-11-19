@@ -75,6 +75,7 @@ async function getAllUsers(guildId: string, dataType: 'levels' | 'users'): Promi
     // If not found or empty, try getting parent object
     if (!allData || Object.keys(allData).length === 0) {
       const parentData = await db.get(dataType);
+      
       if (parentData && parentData[guildId]) {
         allData = parentData[guildId];
       }
@@ -82,6 +83,7 @@ async function getAllUsers(guildId: string, dataType: 'levels' | 'users'): Promi
     
     // If still no data, return empty array
     if (!allData || typeof allData !== 'object') {
+      console.log(`[getAllUsers] No data found for ${dataType} in guild ${guildId}`);
       return [];
     }
 
@@ -100,9 +102,10 @@ async function getAllUsers(guildId: string, dataType: 'levels' | 'users'): Promi
       })
       .filter(user => user !== null);
     
+    console.log(`[getAllUsers] Found ${users.length} ${dataType} users in guild ${guildId}`);
     return users;
   } catch (error) {
-    console.error(`Error fetching ${dataType} for guild ${guildId}:`, error);
+    console.error(`[getAllUsers] Error fetching ${dataType} for guild ${guildId}:`, error);
     return [];
   }
 }
@@ -171,7 +174,16 @@ export async function getEconomyLeaderboard(guildId: string, limit: number = 10)
  */
 export async function getUserRank(userId: string, guildId: string): Promise<number> {
   const leaderboard = await getLeaderboard(guildId, 9999); // Get all users
+  console.log(`[getUserRank] Leaderboard has ${leaderboard.length} users for guild ${guildId}`);
+  
+  if (leaderboard.length > 0) {
+    console.log(`[getUserRank] Sample user IDs:`, leaderboard.slice(0, 3).map(u => u.id));
+    console.log(`[getUserRank] Looking for user:`, userId);
+  }
+  
   const position = leaderboard.findIndex(user => user.id === userId);
+  console.log(`[getUserRank] User ${userId} position:`, position === -1 ? 'Not found' : position + 1);
+  
   return position === -1 ? 0 : position + 1;
 }
 

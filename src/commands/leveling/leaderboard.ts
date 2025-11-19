@@ -30,6 +30,10 @@ export default {
     try {
       await interaction.deferReply();
 
+      // Debug logging
+      console.log(`[Leaderboard] Guild ID: ${interaction.guildId}`);
+      console.log(`[Leaderboard] Type: ${type}`);
+
       if (type === 'economy') {
         // ==================== ECONOMY LEADERBOARD ====================
         const allUsers = await getEconomyLeaderboard(interaction.guildId!, 9999);

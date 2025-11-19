@@ -65,6 +65,7 @@ async function getAllUsers(guildId, dataType) {
         }
         // If still no data, return empty array
         if (!allData || typeof allData !== 'object') {
+            console.log(`[getAllUsers] No data found for ${dataType} in guild ${guildId}`);
             return [];
         }
         // Convert object to array of users
@@ -80,10 +81,11 @@ async function getAllUsers(guildId, dataType) {
             };
         })
             .filter(user => user !== null);
+        console.log(`[getAllUsers] Found ${users.length} ${dataType} users in guild ${guildId}`);
         return users;
     }
     catch (error) {
-        console.error(`Error fetching ${dataType} for guild ${guildId}:`, error);
+        console.error(`[getAllUsers] Error fetching ${dataType} for guild ${guildId}:`, error);
         return [];
     }
 }
@@ -144,7 +146,13 @@ export async function getEconomyLeaderboard(guildId, limit = 10) {
  */
 export async function getUserRank(userId, guildId) {
     const leaderboard = await getLeaderboard(guildId, 9999); // Get all users
+    console.log(`[getUserRank] Leaderboard has ${leaderboard.length} users for guild ${guildId}`);
+    if (leaderboard.length > 0) {
+        console.log(`[getUserRank] Sample user IDs:`, leaderboard.slice(0, 3).map(u => u.id));
+        console.log(`[getUserRank] Looking for user:`, userId);
+    }
     const position = leaderboard.findIndex(user => user.id === userId);
+    console.log(`[getUserRank] User ${userId} position:`, position === -1 ? 'Not found' : position + 1);
     return position === -1 ? 0 : position + 1;
 }
 /**
