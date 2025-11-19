@@ -248,7 +248,7 @@ DASHBOARD_PORT=3000
 
 ## 🎯 Key Highlights
 
-### Version 2.0 Updates
+### Version 1.2 Updates
 
 ✅ **User Mention System** - Proper Discord notifications (19 commands fixed)  
 ✅ **Leaderboard Fix** - Accurate rankings and data retrieval  
@@ -305,7 +305,7 @@ discord-bot/
 ├── .env                    # Environment variables
 ├── package.json            # Dependencies
 ├── tsconfig.json           # TypeScript config
-├── CHANGELOG.md            # Version 2.0 changes
+├── CHANGELOG.md            # Version 1.2 changes
 └── README.md               # This file
 ```
 
@@ -405,7 +405,7 @@ Wait 1-2 minutes for Discord to update commands globally.
 
 ## 📚 Documentation
 
-- **[CHANGELOG.md](CHANGELOG.md)** - Version 2.0 complete changes
+- **[CHANGELOG.md](CHANGELOG.md)** - Version 1.2 complete changes
 - **[Setup Guide](#quick-start)** - Installation instructions
 - **[Commands](#command-categories)** - All available commands
 - **[Database](#database-system)** - Database architecture
@@ -451,4 +451,4 @@ For issues, questions, or suggestions:
 
 **Built with ❤️ using TypeScript & Discord.js v14**
 
-**Version 2.0** - Complete overhaul with enhanced user mentions, fixed leaderboards, MongoDB/JSON sync system, and 4 new admin commands.
+**Version 1.2** - Complete overhaul with enhanced user mentions, fixed leaderboards, MongoDB/JSON sync system, and 4 new admin commands.
